@@ -1,6 +1,6 @@
 {
   "name": "@nuri/component",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "private": false,
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -69,8 +69,8 @@
     "storybook": "start-storybook -s public -p 4000",
     "build-storybook": "build-storybook -s public",
     "build-lib": "yarn build:es && yarn build:cjs && yarn build:types",
-    "build:es": "export NODE_ENV=production && npx babel src/lib --config-file ./es.babelrc.js --out-dir es --extensions .ts,.tsx --delete-dir-on-start",
-    "build:cjs": "export NODE_ENV=production && npx babel src/lib --config-file ./cjs.babelrc.js --out-dir lib --extensions .ts,.tsx --delete-dir-on-start",
+    "build:es": "export NODE_ENV=production && npx babel src/lib --config-file ./es.babelrc.js --out-dir es/lib --extensions .ts,.tsx --delete-dir-on-start",
+    "build:cjs": "export NODE_ENV=production && npx babel src/lib --config-file ./cjs.babelrc.js --out-dir lib/lib --extensions .ts,.tsx --delete-dir-on-start",
     "build:types": "rm -rf types && tsc -p tsconfig.types.json"
   },
   "publishConfig": {
