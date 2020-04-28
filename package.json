@@ -1,9 +1,9 @@
 {
   "name": "@nuri/component",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "private": false,
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "main": "lib/lib/index.js",
+  "module": "es/lib/index.js",
   "types": "types/index.d.ts",
   "files": [
     "css",
