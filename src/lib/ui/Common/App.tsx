@@ -11,7 +11,7 @@ interface Props {
 
 @observer
 @autobind
-class Alert extends Component<Props>{
+class App extends Component<Props>{
   constructor(props:any) {
     super(props);
   }
@@ -39,4 +39,4 @@ class Alert extends Component<Props>{
 
 }
 
-export default Alert;
+export default App;

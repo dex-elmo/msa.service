@@ -1,8 +1,10 @@
 import React from 'react'
+// import {Modal} from '@nuri/component';
+import {Modal} from '~/lib';
 
 export default {
-  title: 'component|Alert',
-  component: null,
+  title: 'component|Modal',
+  component: Modal, // lib class component
   parameters: {
     // docs: {
     //   page: () => (
@@ -11,3 +13,4 @@ export default {
     // },
   },
 }
+

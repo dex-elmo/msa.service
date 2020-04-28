@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import docs from './docs'
 import {Button} from "semantic-ui-react";
 import * as alert from '~/lib/ui/module/alert';
-import App from "~/lib/ui/Common/App";
+import App from '~/lib/ui/Common/App';
+import AlertComponent from "~/lib/ui/Alert";
 
 export const Alert = (props: any) => {
   //
@@ -28,7 +29,8 @@ export const Alert = (props: any) => {
         <div>
           <Button onClick={() => this.showAlert(param)}>Alert</Button>
 
-          <App/>
+          {/*<App/>*/}
+          <AlertComponent/>
         </div>
       )
     }
@@ -42,7 +44,7 @@ Alert.story = {
 };
 
 export default {
-  title: 'component|Echo',
+  title: 'component|Alert',
   component: docs.component,
   parameters: { ...docs.parameters },
 }
