@@ -1,6 +1,6 @@
 {
   "name": "@nuri/component",
-  "version": "0.0.0",
+  "version": "0.1.12",
   "private": false,
   "main": "lib/lib/index.js",
   "module": "es/lib/index.js",
@@ -71,6 +71,9 @@
     "build:es": "export NODE_ENV=production && npx babel src/lib --config-file ./es.babelrc.js --out-dir es/lib --extensions .ts,.tsx --delete-dir-on-start",
     "build:cjs": "export NODE_ENV=production && npx babel src/lib --config-file ./cjs.babelrc.js --out-dir lib/lib --extensions .ts,.tsx --delete-dir-on-start",
     "build:types": "rm -rf types && tsc -p tsconfig.types.json"
+  },
+  "publishConfig": {
+    "registry": "http://172.16.55.140:8081/repository/npm-private/"
   },
   "eslintConfig": {
     "extends": "react-app"
