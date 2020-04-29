@@ -42,12 +42,12 @@ function configureMain (callback) {
         ...webpackConfig.resolve.alias,
         '~': appSrcPath,
         [process.env.npm_package_name]: path.resolve(appSrcPath, 'lib'), // 수정?
-      }
+      };
       if (!webpackConfig.resolve.plugins) {
         webpackConfig.resolve.plugins = []
       }
       webpackConfig.resolve.plugins.push(new TsconfigPathsWebpackPlugin(
-        { configFile: 'src/storybook/tsconfig.json' }))
+        { configFile: 'src/storybook/tsconfig.json' }));
 
       // webpackConfig.module.rules.push({
       //   test: /\.(js|mjs|jsx|ts|tsx)$/,
