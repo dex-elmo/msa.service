@@ -1,1 +1,5 @@
-export default null;
+import searchModel from './search/SearchModel';
+
+export default {
+  searchModel
+};
