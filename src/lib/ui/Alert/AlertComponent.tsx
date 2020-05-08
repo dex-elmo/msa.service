@@ -1,20 +1,51 @@
 import React, { Component } from 'react';
 import { Modal } from 'semantic-ui-react'
-import { AlertStore, store } from '~/lib/service';
+import { store } from '~/lib/service';
 import autobind from "~/lib/ui/module/autobindDecorator";
 import * as alert from '~/lib/ui/module/alert/index';
 import {observer} from "mobx-react";
 
 interface Props {
-  alertStore?: AlertStore,
+  /** 헤더 */
+  header:string | object;
+  /** 콘텐츠 */
+  contents:string | object;
+  /** Alert의 버튼 객체 배열 */
+  // actions:{key:string, content:string, color:string, func:(val:string)=>void}[];
+  actions:{key:string, content:string, color:string}[];
+  /** Alert 크기 */
+  size:'mini' | 'tiny' | 'small' | 'large';
+  /** Alert의 vertical centered 여부 */
+  centered:boolean;
+  /** Alert dim 클릭시 close 여부. button이 없으면 true로 고정 */
+  onClose:boolean;
+  /** dim 옵션 */
+  dimmer:true | 'blurring' | 'inverted'
 }
 
+/**
+ * Alert 함수형 컴포넌트입니다.
+ *
+ * - `Alert` 컴포넌트를 코드에 삽입해야 합니다.
+ * - `alert`를 import 한 후 함수형으로 사용합니다. ex) `alert.show()`
+ * - `show()`의 파라미터는 `header, contents, param`입니다.
+ */
 @observer
 @autobind
 class AlertComponent extends Component<Props>{
   constructor(props:any) {
     super(props);
   }
+
+  static defaultProps = {
+    header:'',
+    contents:'',
+    size: 'mini',
+    centered: true,
+    onClose: true,
+    dimmer: true,
+    actions: null,
+  };
 
   close = () => {
     alert.close();
@@ -24,13 +55,13 @@ class AlertComponent extends Component<Props>{
   };
 
   render(){
-    const { open , contentContent, size, centered, onClosed, header, headerContent, content, dimmer, actions, closeIcon} = store.alertStore;
+    const { open , size, centered, onClosed, header, contents, dimmer, actions} = store.alertStore;
 
     return(
       <>
-        <Modal open={open} size={size} centered={centered} dimmer={dimmer} onClose={onClosed || actions === null ? this.close : this.show} closeIcon={closeIcon}>
-          {header ? <Modal.Header content={headerContent} /> : ''}
-          {content ? <Modal.Content content={contentContent} /> : ''}
+        <Modal open={open} size={size} centered={centered} dimmer={dimmer} onClose={onClosed || actions === null ? this.close : this.show}>
+          {header ? <Modal.Header content={header} /> : ''}
+          {contents ? <Modal.Content content={contents} /> : ''}
           {actions !== null ? <Modal.Actions actions={actions} onActionClick={(event, data) => { this.close(); }} /> : ''}
         </Modal>
       </>

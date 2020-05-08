@@ -1,8 +1,9 @@
 import React from 'react'
+import {Alert} from "~/lib";
 
 export default {
   title: 'component|Alert',
-  component: null,
+  component: Alert,
   parameters: {
     // docs: {
     //   page: () => (
