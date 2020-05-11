@@ -25,7 +25,6 @@ class progressBarView extends Component<Props>{
       const {store_active} = store.progressStrore;
       console.log('store_active',store_active);
         return(
-          
           <Loader active={store_active} content='Loading'/>
         )
     }

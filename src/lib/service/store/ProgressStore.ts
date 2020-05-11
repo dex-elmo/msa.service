@@ -10,7 +10,7 @@ class ProgressStore {
     
     @action
     start_interceptor(){
-      let visible = true;
+      let visible = false;
       let cnt_axios : number = 0;
                   
     // 요청 인터셉터 추가
