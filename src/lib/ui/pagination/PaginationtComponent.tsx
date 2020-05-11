@@ -5,25 +5,18 @@ import {observer} from "mobx-react";
 
 interface Props {
   paginationStore?: PaginationStore,
-  clickHandler?: any,
+  clickHandler(currPage:number): void,
 }
 
 @observer
 class PaginationComponent extends Component<Props> {
-  constructor(props:any) {
-    super(props);
-    this.clickHandler = this.props.clickHandler.bind(this);
-  }
-
-  clickHandler = (current:number) => {}
-
   render() {
     const { current, totalPage } = store.paginationStore;
     return (
       <Pagination
-        defaultActivePage={current}
+        activePage={current}
         totalPages={totalPage}
-        onPageChange={(event, data) => {this.clickHandler(data.activePage as number)}}
+        onPageChange={(event, data) => {this.props.clickHandler(data.activePage as number)}}
       />
     );
   }

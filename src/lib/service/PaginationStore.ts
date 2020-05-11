@@ -17,8 +17,14 @@ class PaginationStore {
   page(current:number, limit: number, totalCnt: number) {
     this.current = current;
     this.limit = limit;
-    this.totalPage = Math.ceil(totalCnt/limit);;
+    this.totalPage = Math.ceil(totalCnt/limit);
   }
+
+  @action
+  setCurrent(current:number) {
+    this.current = current;
+  }
+
 }
 
 PaginationStore.instance = new PaginationStore();

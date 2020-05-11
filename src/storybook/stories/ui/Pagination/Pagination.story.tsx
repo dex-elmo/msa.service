@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import docs from './docs'
-import { Pagination } from "~/lib";
+//Test
 import { Dropdown } from 'semantic-ui-react';
+//pagination
+import { Pagination } from "~/lib";
 import * as pagination from '~/lib/ui/module/pagination';
-
 
 const options = [
   { value: '10', text: '10' },
@@ -13,55 +14,42 @@ const options = [
 ]
 
 export const basic = (props: any) => {
-  //
+
   class Story extends Component {
-
-    private limit:number = 10;
-
     constructor(props:any) {
       super(props);
-      this.state = {
-        current: 1,
-        limit: 10,
-        totalCnt: 0,
-      };
+      this.getCurrent = this.getCurrent.bind(this);
     }
 
+    totalCnt:number = 523;
+
     //Click Event
+    getCurrent(current:number){
+      pagination.setCurrent(current);
+
+      //test
+      this.movePage(current);
+    }
+
     movePage(current:number){
-      this.setState((state, props) => ({
-        current: current
-      }));
+      console.log("parent function: " + current);
     }
 
     //limit
     onChangeLimit(limit:number){
-      this.setState((state, props) => ({
-        limit: limit
-      }));
-      this.limit = limit;
-      this.page();
-    }
-
-    page(){
-      pagination.page(this.state.current, this.limit, this.state.totalCnt);
+      pagination.page(1, limit, this.totalCnt);
     }
 
     // view
     componentDidMount(){
-      this.setState((state, props) => ({
-        totalCnt: 583
-      }));
-      this.page();
+      pagination.page(1, 10, this.totalCnt);
     }
 
     render () {
       return (
         <div>
-          Total: {this.state.totalCnt}<br/>
-          Total: {this.limit}<br/>
-          Current: {this.state.current}<br/>
-          Limit:
+          Total: {this.totalCnt}<br/>
+          limit:
           <Dropdown
             selection
             defaultValue={'10'}
@@ -69,7 +57,7 @@ export const basic = (props: any) => {
             onChange={(e, data) => this.onChangeLimit(data.value as number)}
           />
           <br/>
-          <Pagination clickHandler={this.movePage} />
+          <Pagination clickHandler={this.getCurrent} />
         </div>
 
       )
