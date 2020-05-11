@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Form as SemanticForm, FormProps } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
-import searchModel from '../../../model/search/SearchModel';
+import searchStore from '~/lib/service/store/search/SearchStore';
 
 interface Props extends FormProps {
   onSearch:Function
@@ -26,7 +26,7 @@ interface SearchBoxProps {
 class SearchBoxView extends React.Component<SearchBoxProps> {
   handleSubmit = () => {
     // JSON Data
-    this.props.onSearch(searchModel.searchParams);
+    this.props.onSearch(searchStore.searchParams);
   };
 
   render() {

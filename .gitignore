@@ -11,6 +11,8 @@
 /build
 /lib
 /storybook-static
+/es
+/types
 
 # misc
 .DS_Store

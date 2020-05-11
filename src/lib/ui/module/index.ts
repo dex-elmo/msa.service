@@ -1,2 +1,5 @@
+import * as ProgressModule from './progress/progressModule';
 
-export default null;
+export {
+  ProgressModule
+};

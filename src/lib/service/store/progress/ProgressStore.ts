@@ -1,4 +1,4 @@
-import {observable, action, computed} from 'mobx';
+import {observable, action } from 'mobx';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 class ProgressStore {
@@ -7,12 +7,12 @@ class ProgressStore {
 
     @observable
     store_active : boolean = false;
-    
+
     @action
     start_interceptor(){
       let visible = false;
       let cnt_axios : number = 0;
-                  
+
     // 요청 인터셉터 추가
     axios.interceptors.request.use(
       (config:AxiosRequestConfig )=> {
@@ -20,7 +20,7 @@ class ProgressStore {
       console.log('request', new Date());
       cnt_axios++;
       console.log('cnt_axios', cnt_axios);
-      
+
       if(config.method=="get"){
         if(config.params['visible']==true)
           visible = true;
@@ -40,7 +40,7 @@ class ProgressStore {
          console.log('axios interceptor request error');
          return Promise.reject(error);
        });
-    
+
 
     // 응답 인터셉터 추가
      axios.interceptors.response.use(
@@ -58,7 +58,7 @@ class ProgressStore {
          console.log('axios interceptor response error');
          return Promise.reject(error);
        });
-            
+
     }
 }
 

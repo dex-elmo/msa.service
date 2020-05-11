@@ -5,7 +5,7 @@ import ProgressComponent from "~/lib/ui/ProgressBar";
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import autoBind from 'auto-bind';
-import * as progress from '~/lib/ui/module/progress/';
+import { ProgressModule } from '~/lib/ui/module';
 
 export const Basic = (props: any) => {
   //
@@ -17,7 +17,7 @@ export const Basic = (props: any) => {
     }
 
     startInterceptor(){
-      progress.start_interceptor();
+      ProgressModule.start_interceptor();
     }
 
 
@@ -36,7 +36,7 @@ export const Basic = (props: any) => {
                                         visible:true
                                         }
                               })
-        .then(request => {});  
+        .then(request => {});
     }
 
     getProgress(){
@@ -59,16 +59,16 @@ export const Basic = (props: any) => {
       });
 
     }
-   
-   
+
+
 
     render () {
-    
+
       const style1:CSSProperties ={
         backgroundColor : 'pink'
       }
 
-       
+
       return (
         <div style={style1}>
             <Button onClick={()=> this.getProgress()}>로딩바 버튼</Button>

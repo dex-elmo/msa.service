@@ -1,5 +1,5 @@
-
-import ProgressStore from "./store/ProgressStore";
+import ProgressStore from "./store/progress/ProgressStore";
+import searchStore from './store/search/SearchStore';
 
 const store = {
   progressStrore: ProgressStore.instance
@@ -8,4 +8,8 @@ const store = {
 export  {
   store,
   ProgressStore
+}
+
+export default {
+  searchStore
 }

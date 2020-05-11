@@ -1,7 +1,7 @@
-import React, { ChangeEvent, ReactNode } from 'react';
+import React, { ChangeEvent } from 'react';
 import { FormInput as SemanticFormInput, FormInputProps, LabelProps, InputOnChangeData, SemanticShorthandItem } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
-import searchModel from '../../../../model/search/SearchModel';
+import searchStore from '~/lib/service/store/search/SearchStore';
 
 // enum SearchBoxType {
 //   Multiple = 'Multiple',
@@ -56,7 +56,7 @@ interface Data {
 @observer
 class InputView extends React.Component<SearchInputProps> {
   onChange = (e:ChangeEvent, data:Data) => {
-    searchModel.searchParams[this.props.propname] = data.value;
+    searchStore.searchParams[this.props.propname] = data.value;
   }
 
   render(){

@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { FormGroup as SemanticFormGroup, FormGroupProps } from 'semantic-ui-react';
+import React from 'react';
+import { FormGroup as SemanticFormGroup } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 
 interface SearchGroupProps {

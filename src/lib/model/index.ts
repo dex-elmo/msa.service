@@ -1,5 +1,1 @@
-import searchModel from './search/SearchModel';
-
-export default {
-  searchModel
-};
+export default null;

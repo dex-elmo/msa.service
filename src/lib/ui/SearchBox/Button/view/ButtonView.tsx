@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { FormButton as SemanticFormButton, FormButtonProps, SemanticShorthandItem, IconProps } from 'semantic-ui-react';
 
 interface Props extends FormButtonProps {

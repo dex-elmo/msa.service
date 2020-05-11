@@ -1,7 +1,7 @@
-import React, { SyntheticEvent, ReactNode, MouseEvent } from 'react';
+import React, { SyntheticEvent, MouseEvent } from 'react';
 import { FormCheckbox as SemanticFormCheckBox, FormCheckboxProps, SemanticShorthandItem, CheckboxProps, HtmlLabelProps } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
-import searchModel from '../../../../model/search/SearchModel';
+import searchStore from '~/lib/service/store/search/SearchStore';
 
 interface Props extends FormCheckboxProps{
   propname: string
@@ -43,7 +43,7 @@ interface Data {
 @observer
 class CheckView extends React.Component<SearchCheckProps> {
   onClick = (e:SyntheticEvent, data:object) => {
-    searchModel.searchParams[this.props.propname] = (data as Data).checked;
+    searchStore.searchParams[this.props.propname] = (data as Data).checked;
   }
 
   render(){

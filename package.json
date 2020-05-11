@@ -1,7 +1,7 @@
 {
-  "name": "nuri-search-box-component",
-  "version": "0.1.3",
-  "description": "Nuri SearchBox Component",
+  "name": "nuri-common-component",
+  "version": "0.1.0",
+  "description": "Nuri Common Component",
   "main": "lib/lib/index.js",
   "module": "es/lib/index.js",
   "types": "types/index.d.ts",

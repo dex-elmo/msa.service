@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, ReactNode, KeyboardEvent, MouseEvent } from 'react';
 import { FormSelect as SemanticFormSelect, FormSelectProps, DropdownItemProps, SemanticShorthandItem, HtmlLabelProps, DropdownProps, LabelProps } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
-import searchModel from '../../../../model/search/SearchModel';
+import searchStore from '~/lib/service/store/search/SearchStore';
 
 interface Props extends FormSelectProps {
   propname: string
@@ -101,7 +101,7 @@ interface Data {
 @observer
 class SelectView extends React.Component<SearchSelectProps> {
   onChange = (e:SyntheticEvent, data:object) => {
-    searchModel.searchParams[this.props.propname] = (data as Data).value;
+    searchStore.searchParams[this.props.propname] = (data as Data).value;
   }
 
   render(){

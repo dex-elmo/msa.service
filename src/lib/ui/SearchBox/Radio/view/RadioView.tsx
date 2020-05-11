@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import { FormRadio as SemainticFormRadio, FormRadioProps, SemanticShorthandItem, HtmlLabelProps, CheckboxProps } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
-import searchModel from '../../../../model/search/SearchModel';
+import searchStore from '~/lib/service/store/search/SearchStore';
 
 interface Props extends FormRadioProps {
   propname: string
@@ -45,14 +45,14 @@ interface Data {
 @observer
 class RadioView extends React.Component<SearchRadioProps> {
   onChange = (e:FormEvent, data:object) => {
-    searchModel.searchParams[this.props.propname] = (data as Data).value;
+    searchStore.searchParams[this.props.propname] = (data as Data).value;
   }
 
   render(){
     const { value : propValue } = this.props;
 
     return(
-      <SemainticFormRadio {...this.props} checked={searchModel.searchParams[this.props.propname] === propValue} onChange={this.onChange}/>
+      <SemainticFormRadio {...this.props} checked={searchStore.searchParams[this.props.propname] === propValue} onChange={this.onChange}/>
     );
   }
 }
