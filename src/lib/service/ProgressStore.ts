@@ -1,13 +1,16 @@
 import {observable, action, computed} from 'mobx';
-import autobind from "~/lib/ui/module/autobindDecorator";
+// import autobind from "~/lib/ui/module/autobindDecorator";
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { promises, resolve } from 'dns';
-import { request } from 'http';
+
+import * as autoBind from 'auto-bind';
 
 
-
-@autobind
+// @autobind
 class ProgressStore {
+  constructor(){
+    autoBind(this);
+  }
+
     static instance: ProgressStore;
 
     @observable
@@ -15,7 +18,7 @@ class ProgressStore {
     
     @action
     start_interceptor(){
-          
+                  
     // 요청 인터셉터 추가
     axios.interceptors.request.use(
       (config:AxiosRequestConfig )=> {
