@@ -5,11 +5,7 @@ import ProgressComponent from "~/lib/ui/ProgressBar";
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import autoBind from 'auto-bind';
-
 import * as progress from '~/lib/ui/module/progress/';
-
-import { Dimmer, Loader, Segment} from 'semantic-ui-react'
-
 
 export const Basic = (props: any) => {
   //
@@ -42,6 +38,7 @@ export const Basic = (props: any) => {
                               })
         .then(request => {});  
     }
+
     getProgress(){
       axios.get('/',{
                       params: {
@@ -62,16 +59,17 @@ export const Basic = (props: any) => {
       });
 
     }
-    
+   
+   
+
     render () {
     
       const style1:CSSProperties ={
         backgroundColor : 'pink'
-      
       }
+
+       
       return (
-        
-    
         <div style={style1}>
             <Button onClick={()=> this.getProgress()}>로딩바 버튼</Button>
             <ProgressComponent />

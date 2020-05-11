@@ -10,13 +10,29 @@ class ProgressStore {
     
     @action
     start_interceptor(){
+      let visible = true;
+      let cnt_axios : number = 0;
                   
     // 요청 인터셉터 추가
     axios.interceptors.request.use(
       (config:AxiosRequestConfig )=> {
       // 요청을 보내기 전에 수행할 일
       console.log('request', new Date());
-      this.store_active = true;
+      cnt_axios++;
+      console.log('cnt_axios', cnt_axios);
+      
+      if(config.method=="get"){
+        if(config.params['visible']==true)
+          visible = true;
+      }
+      else if(config.method=="post"){
+         if(config.data.params['visible']== true)
+          visible = true;
+      }
+
+      if(visible == true)
+        this.store_active = true;
+
       return config;
     },
        function (error) {
@@ -30,8 +46,10 @@ class ProgressStore {
      axios.interceptors.response.use(
       (response:AxiosResponse )=> {
        console.log('response', new Date());
-       this.store_active = false;
-           
+       cnt_axios--;
+        if(cnt_axios == 0)
+          this.store_active = false;
+        console.log('cnt_axios', cnt_axios);
           return response;
        },
        function (error) {
