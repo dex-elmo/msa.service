@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component,CSSProperties } from 'react'
 import { Button} from 'semantic-ui-react'
 import docs from './docs'
 import ProgressComponent from "~/lib/ui/ProgressBar";
@@ -7,21 +7,13 @@ import axios from 'axios';
 import autoBind from 'auto-bind';
 
 import * as progress from '~/lib/ui/module/progress/';
-import { request } from 'http';
+
+import { Dimmer, Loader, Segment} from 'semantic-ui-react'
 
 
 export const Basic = (props: any) => {
   //
   class ProgressStory extends Component{
-
-    /** 사용법 : store 에서 axios 사용할 때 */
-     /** 사용 여부, default visible : true
-       axios.post("/",{
-                                params: {
-                                        visible:true
-                                        }
-                              })*/
-
 
     componentDidMount(){
       autoBind(this);
@@ -33,7 +25,7 @@ export const Basic = (props: any) => {
     }
 
 
-    showProgress(){
+    postProgress(){
 
         const mock = new MockAdapter(axios);
         mock.onPost("/").reply(200, {
@@ -50,7 +42,7 @@ export const Basic = (props: any) => {
                               })
         .then(request => {});  
     }
-    Progress(){
+    getProgress(){
       axios.get('/',{
                       params: {
                               visible:true
@@ -70,14 +62,20 @@ export const Basic = (props: any) => {
       });
 
     }
+    
     render () {
+    
+      const style1:CSSProperties ={
+        backgroundColor : 'pink'
+      
+      }
       return (
         
-        <div>
-            {/* <Button onClick={()=> this.showProgress()}>on </Button>  */}
-            <Button onClick={()=> this.Progress()}>로딩바</Button>
+    
+        <div style={style1}>
+            <Button onClick={()=> this.getProgress()}>로딩바 버튼</Button>
             <ProgressComponent />
-              
+
         </div>
       )
     }

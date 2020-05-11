@@ -1,8 +1,8 @@
-import React from 'react'
+import { ProgressBar } from '~/lib/ui/index';
 
 export default {
-  title: 'component|Progress',
-  component: null, // lib class component
+  title: 'component|ProgressBar',
+  component: ProgressBar, // lib class component
   parameters: {
     // docs: {
     //   page: () => (

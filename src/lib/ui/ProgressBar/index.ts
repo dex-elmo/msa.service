@@ -1,1 +1,4 @@
-export {default} from './ProgressComponent';
+import progressBarView from './view/ProgressBarView';
+
+export default progressBarView;
+
