@@ -4,12 +4,7 @@ import {observer} from "mobx-react";
 import {ProgressStore, store} from '~/lib/service';
 
 interface Props {
-     /** 사용 여부, default visible : true
-       axios.post("/",{
-                                params: {
-                                        visible:true
-                                        }
-                              })*/
+    /** post 는 3번째 인자에 visible 속성을, get은 2번째 속성에 visible 속성을 true. false  ( default : true ) */
     progressStore?: ProgressStore
     
   }
@@ -20,12 +15,20 @@ class progressBarView extends Component<Props>{
         super(props);
     }
 
-    render(){
+    handleShow = () => this.setState({ active: true })
+    handleHide = () => this.setState({ active: false })
 
-      const {store_active} = store.progressStrore;
-      console.log('store_active',store_active);
+    render(){
+      const {store_active} = store.progressStore;
+      
         return(
-          <Loader active={store_active} content='Loading'/>
+          <div>
+          <Dimmer.Dimmable  dimmed={store_active}>
+          <Dimmer active={store_active} inverted onClickOutside={this.handleShow} page > 
+          <Loader content='Loading'/>
+          </Dimmer>
+          </Dimmer.Dimmable>
+          </div>
         )
     }
 }

@@ -2,7 +2,7 @@ import ProgressStore from "./store/progress/ProgressStore";
 import searchStore from './store/search/SearchStore';
 
 const store = {
-  progressStrore: ProgressStore.instance
+  progressStore: ProgressStore.instance
 };
 
 export  {
