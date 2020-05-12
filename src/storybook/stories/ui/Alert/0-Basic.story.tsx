@@ -8,17 +8,11 @@ export const Alert = (props: any) => {
   //
   class AlertStory extends Component {
 
-    showAlert(header:string|object, contents:string|object, param:any){
-      alert.show(header, contents, param);
+    showAlert(contents:string|object, param:any){
+      alert.show(contents, param);
     }
 
     render () {
-      const header =
-        <div>
-          <h3>header</h3>
-        </div>
-      ;
-
       const contents =
         <div>
           contents
@@ -26,6 +20,7 @@ export const Alert = (props: any) => {
       ;
 
       const param = {
+        header: <h3>header</h3>,
         size : 'mini',
         centered : true,
         onClosed : true,
@@ -33,13 +28,12 @@ export const Alert = (props: any) => {
         actions: [{key : '1', content:'ok', color:'green'} , {key : '2', content:'close', color:'grey'}]
       };
 
-      const param_noParam = {
-      };
+      const no_param = {}
 
       return (
         <div>
-          <Button onClick={() => this.showAlert(header, contents, param)}>Alert</Button>
-          <Button onClick={() => this.showAlert(header, contents, param_noParam)}>no param</Button>
+          <Button onClick={() => this.showAlert(contents, param)}>Alert</Button>
+          <Button onClick={() => this.showAlert(contents, no_param)}>no_param</Button>
 
           <AlertComponent/>
         </div>

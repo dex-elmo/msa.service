@@ -8,17 +8,11 @@ export const Size = (props: any) => {
   //
   class AlertStory extends Component {
 
-    showAlert(header:string|object, contents:string|object, param:any){
-      alert.show(header, contents, param);
+    showAlert(contents:string|object, param:any){
+      alert.show(contents, param);
     }
 
     render () {
-      const header =
-        <div>
-          <h3>header</h3>
-        </div>
-      ;
-
       const contents =
         <div>
           contents
@@ -26,28 +20,32 @@ export const Size = (props: any) => {
       ;
 
       const param_mini = {
+        header: <h3>header</h3>,
         size : 'mini',
         actions: [{key : '1', content:'ok', color:'green'}]
       };
       const param_tiny = {
+        header: <h3>header</h3>,
         size : 'tiny',
         actions: [{key : '1', content:'ok', color:'green'}]
       };
       const param_small = {
+        header: <h3>header</h3>,
         size : 'small',
         actions: [{key : '1', content:'ok', color:'green'}]
       };
       const param_large = {
+        header: <h3>header</h3>,
         size : 'large',
         actions: [{key : '1', content:'ok', color:'green'}]
       };
 
       return (
         <div>
-          <Button onClick={() => this.showAlert(header, contents, param_mini)}>mini</Button>
-          <Button onClick={() => this.showAlert(header, contents, param_tiny)}>tiny</Button>
-          <Button onClick={() => this.showAlert(header, contents, param_small)}>small</Button>
-          <Button onClick={() => this.showAlert(header, contents, param_large)}>large</Button>
+          <Button onClick={() => this.showAlert(contents, param_mini)}>mini</Button>
+          <Button onClick={() => this.showAlert(contents, param_tiny)}>tiny</Button>
+          <Button onClick={() => this.showAlert(contents, param_small)}>small</Button>
+          <Button onClick={() => this.showAlert(contents, param_large)}>large</Button>
 
           <AlertComponent/>
         </div>

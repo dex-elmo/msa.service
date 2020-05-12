@@ -8,17 +8,11 @@ export const Dim = (props: any) => {
   //
   class AlertStory extends Component {
 
-    showAlert(header:string|object, contents:string|object, param:any){
-      alert.show(header, contents, param);
+    showAlert(contents:string|object, param:any){
+      alert.show(contents, param);
     }
 
     render () {
-      const header =
-        <div>
-          <h3>header</h3>
-        </div>
-      ;
-
       const contents =
         <div>
           contents
@@ -26,23 +20,26 @@ export const Dim = (props: any) => {
       ;
 
       const param_true = {
+        header: <h3>header</h3>,
         actions: [{key : '1', content:'ok', color:'green'}]
       };
 
       const param_blurring = {
+        header: <h3>header</h3>,
         dimmer: 'blurring',
         actions: [{key : '1', content:'ok', color:'green'}]
       };
 
       const param_inverted = {
+        header: <h3>header</h3>,
         dimmer: 'inverted',
         actions: [{key : '1', content:'ok', color:'green'}]
       };
       return (
         <div>
-          <Button onClick={() => this.showAlert(header, contents, param_true)}>Default</Button>
-          <Button onClick={() => this.showAlert(header, contents, param_blurring)}>Blurring</Button>
-          <Button onClick={() => this.showAlert(header, contents, param_inverted)}>Inverted</Button>
+          <Button onClick={() => this.showAlert(contents, param_true)}>Default</Button>
+          <Button onClick={() => this.showAlert(contents, param_blurring)}>Blurring</Button>
+          <Button onClick={() => this.showAlert(contents, param_inverted)}>Inverted</Button>
 
           <AlertComponent/>
         </div>

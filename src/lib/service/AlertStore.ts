@@ -31,11 +31,11 @@ class AlertStore {
   actions:string[] | null = [];
 
   @action
-  show(header:string|object, content:string|object, param:any) {
+  show(content:string|object, param:any) {
     this.open = true;
-    this.header = header;
     this.contents = content;
 
+    param.header !== undefined || '' ?  this.header = param.header : this.header = '';
     param.size !== undefined || '' ?  this.size = param.size : this.size = 'mini';
     param.centered !== undefined || '' ? this.centered = param.centered : this.centered = true;
     param.onClosed !== undefined || '' ? this.onClosed = param.onClosed : this.onClosed = true;

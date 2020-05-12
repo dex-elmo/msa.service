@@ -8,17 +8,11 @@ export const Centered = (props: any) => {
   //
   class AlertStory extends Component {
 
-    showAlert(header:string|object, contents:string|object, param:any){
-      alert.show(header, contents, param);
+    showAlert(contents:string|object, param:any){
+      alert.show(contents, param);
     }
 
     render () {
-      const header =
-        <div>
-          <h3>header</h3>
-        </div>
-      ;
-
       const contents =
         <div>
           contents
@@ -26,19 +20,21 @@ export const Centered = (props: any) => {
       ;
 
       const param = {
+        header: <h3>header</h3>,
         centered : true,
         actions: [{key : '1', content:'ok', color:'green'}]
       };
 
       const param_nonCentered = {
+        header: <h3>header</h3>,
         centered : false,
         actions: [{key : '1', content:'ok', color:'green'}]
       };
 
       return (
         <div>
-          <Button onClick={() => this.showAlert(header, contents, param)}>Centered</Button>
-          <Button onClick={() => this.showAlert(header, contents, param_nonCentered)}>Non-Centered</Button>
+          <Button onClick={() => this.showAlert(contents, param)}>Centered</Button>
+          <Button onClick={() => this.showAlert(contents, param_nonCentered)}>Non-Centered</Button>
 
           <AlertComponent/>
         </div>
