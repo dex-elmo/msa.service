@@ -24,14 +24,14 @@ export const BasicStory = (props:any) => {
 
       return (
         <SearchBox onSearch={this.onSearch}>
-          <SearchBox.Input propname="text" label="Label" inline/>
+          <SearchBox.Input propname="text" label="Label"/>
           <SearchBox.Check propname="check" label="동의하겠습니다."/>
           <SearchBox.Group>
             <SearchBox.Radio propname="radio" label="1" value="1"/>
             <SearchBox.Radio propname="radio" label="2" value="2"/>
             <SearchBox.Radio propname="radio" label="3" value="3"/>
           </SearchBox.Group>
-          <SearchBox.Select propname="select" options={sampleOptions} inline/>
+          <SearchBox.Select propname="select" options={sampleOptions} label="선택"/>
           <SearchBox.Button text="Search"/>
 
           <div>

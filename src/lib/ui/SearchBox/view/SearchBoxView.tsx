@@ -13,13 +13,7 @@ interface SearchBoxProps {
   /** Primary content.*/
   children?: ReactNode,
   /** Additional classes.*/
-  className?: string,
-  /** A form can have its color inverted for contrast.*/
-  inverted?: boolean,
-  /** Automatically show a loading indicator.*/
-  loading?: boolean,
-  /** Forms can automatically divide fields to be equal width.*/
-  widths?: "equal"
+  className?: string
 }
 
 @observer

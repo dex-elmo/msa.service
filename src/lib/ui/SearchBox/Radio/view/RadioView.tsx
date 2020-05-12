@@ -16,26 +16,22 @@ interface SearchRadioProps {
   className?: string,
   /** Individual fields may be disabled.*/
   disabled?: boolean,
-  /** A field can have its label next to instead of above it.*/
-  inline?: boolean,
   /** Mutually exclusive with children.*/
   label?: SemanticShorthandItem<HtmlLabelProps>,
   /** A field can show that input is mandatory. Requires a label.*/
   required?: any,
-  /** Format to emphasize the current selection state.*/
-  slider?: boolean,
-  /** Format to show an on or off choice.*/
-  toggle?: boolean,
   /** Whether or not checkbox is checked.*/
   checked?: boolean,
-  /** Removes padding for a label. Auto applied when there is no label.*/
-  fitted?: boolean,
   /** Called when the user attempts to change the checked state.*/
   onChange?: ((event: FormEvent<HTMLInputElement>, data: CheckboxProps) => void),
-  /** Format as a radio element. This means it is an exclusive option.*/
-  radio?: boolean,
   /** The HTML input value.*/
   value?: string | number
+  /** Format to show an on or off choice.*/
+  // toggle?: boolean,
+  /** Format to emphasize the current selection state.*/
+  // slider?: boolean,
+  /** Format as a radio element. This means it is an exclusive option.*/
+  // radio?: boolean,
 }
 
 interface Data {
