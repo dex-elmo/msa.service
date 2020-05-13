@@ -2,10 +2,11 @@ import React, { Component,CSSProperties } from 'react'
 import { Button} from 'semantic-ui-react'
 import docs from './docs'
 import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
+import axios,{AxiosRequestConfig,AxiosInstance} from 'axios';
 import autoBind from 'auto-bind';
 import ProgressBarView from "~/lib/ui/ProgressBar";
-import { ProgressModule } from '~/lib/ui/module';
+import { ftruncate } from 'fs';
+
 
 
 
@@ -14,21 +15,22 @@ export const Basic = (props: any) => {
   // axios.post("/", {      }, { visible:true }  )
   // axios.get('/',{ visible:true } )
   
+  
   class ProgressStory extends Component{
+
     
  
     componentDidMount(){
       autoBind(this);
       // this.startInterceptor();
     }
-
     // startInterceptor(){
     //   ProgressModule.start_interceptor();
     // }
 
 
     postProgress(){
-       
+    
         const mock = new MockAdapter(axios);
         mock.onPost("/").reply(function (config) {
           return new Promise(function (resolve, reject) {
@@ -37,8 +39,8 @@ export const Basic = (props: any) => {
             }, 1000);
           });
         });
-
-        return axios.post("/", {}, { visible:true }  )
+      
+        return axios.post("/", {}, { visible:true } )
           .then(request => {});
       
     }
@@ -61,8 +63,6 @@ export const Basic = (props: any) => {
       });
 
     }
-
-
 
     render () {
 
