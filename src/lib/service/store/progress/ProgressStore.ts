@@ -1,6 +1,6 @@
 import {observable, action } from 'mobx';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-// import { clearTimeout, setTimeout } from 'timers';
+
 
 declare module 'axios' {
   export interface AxiosRequestConfig {
@@ -20,6 +20,7 @@ class ProgressStore {
       let visible = true; // default = true
       let cnt_axios : number = 0;
       let nowTime : number;
+      let timeout_arr : NodeJS.Timeout[] = [];
       let timeout : NodeJS.Timeout;
 
     // 요청 인터셉터 추가
@@ -42,7 +43,8 @@ class ProgressStore {
       {
         timeout = setTimeout(() => {
           this.store_active = true;
-        }, 2000);
+        }, 1500);
+        timeout_arr.push(timeout);
       }
 
       return config;
@@ -59,23 +61,14 @@ class ProgressStore {
      axios.interceptors.response.use(
       (response:AxiosResponse )=> {
 
-      const minimumDelay = 3000;
-      const latency = performance.now() - nowTime;
-      const shouldNotDelay = minimumDelay < latency;
-
       console.log('response', new Date());
       cnt_axios--;
       console.log('cnt_axios', cnt_axios);
-      console.log('shouldNotDelay', shouldNotDelay);
-
-      if (shouldNotDelay) {
-         console.log('timeout', timeout);
-        clearTimeout(timeout);
-        console.log('timeout2', timeout);
-      }
-
       if(cnt_axios === 0){
-          console.log('inner');
+          timeout_arr.map((timeout)=>(
+            clearTimeout(timeout)
+          ));
+          
           this.store_active = false;
       }
 
