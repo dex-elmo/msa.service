@@ -4,6 +4,7 @@ import { store } from '~/lib/service';
 import autobind from "~/lib/ui/module/autobindDecorator";
 import * as alert from '~/lib/ui/module/alert/index';
 import {observer} from "mobx-react";
+import {AlertStore} from "../../../../types/service";
 
 interface Props {
   /** 헤더 */
@@ -57,12 +58,29 @@ class AlertComponent extends Component<Props>{
   render(){
     const { open , size, centered, onClosed, header, contents, dimmer, actions} = store.alertStore;
 
+      let i = 0;
+      const semanticActions = actions?.map(action => ({
+        index: i++,
+        key: action.key,
+        content: action.content,
+        color: action.color,
+      }));
+
     return(
       <>
         <Modal open={open} size={size} centered={centered} dimmer={dimmer} onClose={onClosed || actions === null ? this.close : this.show}>
           {header ? <Modal.Header content={header} /> : ''}
           {contents ? <Modal.Content content={contents} /> : ''}
-          {actions !== null ? <Modal.Actions actions={actions} onActionClick={(event, data) => { this.close(); }} /> : ''}
+          {actions !== null ? <Modal.Actions actions={semanticActions} onActionClick={(event, data) => {
+            if(actions?.length>=2){
+              // console.log(data.index);
+              if(data.index === 0) {
+                alert.confirmed();
+              }
+            }
+
+            this.close(); }}
+          /> : ''}
         </Modal>
       </>
     )

@@ -9,7 +9,7 @@ export const Dim = (props: any) => {
   class AlertStory extends Component {
 
     showAlert(contents:string|object, param:any){
-      alert.show(contents, param);
+      alert.alert(contents, param);
     }
 
     render () {
