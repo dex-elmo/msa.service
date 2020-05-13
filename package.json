@@ -1,6 +1,6 @@
 {
   "name": "@nuri/component",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": false,
   "main": "lib/lib/index.js",
   "module": "es/lib/index.js",
@@ -16,6 +16,9 @@
     "react": "^16.13.1"
   },
   "dependencies": {
+    "ag-grid-community": "^23.1.0",
+    "ag-grid-enterprise": "^23.1.0",
+    "ag-grid-react": "^23.1.0",
     "axios": "^0.19.2",
     "lodash": "^4.17.15",
     "mobx": "^5.15.4",
@@ -71,6 +74,9 @@
     "build:es": "export NODE_ENV=production && npx babel src/lib --config-file ./es.babelrc.js --out-dir es/lib --extensions .ts,.tsx --delete-dir-on-start",
     "build:cjs": "export NODE_ENV=production && npx babel src/lib --config-file ./cjs.babelrc.js --out-dir lib/lib --extensions .ts,.tsx --delete-dir-on-start",
     "build:types": "rm -rf types && tsc -p tsconfig.types.json"
+  },
+  "publishConfig": {
+    "registry": "http://172.16.10.162:8081/repository/npm-private/"
   },
   "eslintConfig": {
     "extends": "react-app"
