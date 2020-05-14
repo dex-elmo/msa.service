@@ -2,24 +2,17 @@ import React, { Component,CSSProperties } from 'react'
 import { Button} from 'semantic-ui-react'
 import docs from './docs'
 import MockAdapter from 'axios-mock-adapter';
-import axios,{AxiosRequestConfig,AxiosInstance} from 'axios';
+import axios from 'axios';
 import autoBind from 'auto-bind';
 import ProgressBarView from "~/lib/ui/ProgressBar";
-import { ftruncate } from 'fs';
-
-
-
 
 export const Basic = (props: any) => {
   //속성 : visible   , default true
   // axios.post("/", {      }, { visible:true }  )
   // axios.get('/',{ visible:true } )
-  
-  
+
   class ProgressStory extends Component{
 
-    
- 
     componentDidMount(){
       autoBind(this);
       // this.startInterceptor();
@@ -28,9 +21,8 @@ export const Basic = (props: any) => {
     //   ProgressModule.start_interceptor();
     // }
 
-
     postProgress(){
-    
+
         const mock = new MockAdapter(axios);
         mock.onPost("/").reply(function (config) {
           return new Promise(function (resolve, reject) {
@@ -39,12 +31,12 @@ export const Basic = (props: any) => {
             }, 1000);
           });
         });
-      
+
         return axios.post("/", {}, { visible:true } )
           .then(request => {});
-      
+
     }
- 
+
     getProgress(){
 
       axios.get('/',{ visible:true } )
@@ -69,7 +61,7 @@ export const Basic = (props: any) => {
       const style1:CSSProperties ={
         backgroundColor : 'pink'
       }
-      
+
       return (
         <div style={style1}>
             <Button onClick={()=> this.postProgress()}>로딩바 버튼</Button>

@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { FormInput as SemanticFormInput, FormInputProps, LabelProps, InputOnChangeData, SemanticShorthandItem } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
-import searchStore from '~/lib/service/store/search/SearchStore';
+import searchStore from '~/lib/service/search/store/SearchStore';
 
 interface Props extends FormInputProps {
   propname: string

@@ -19,7 +19,6 @@ class ProgressStore {
     start_interceptor(){
       let visible = true; // default = true
       let cnt_axios : number = 0;
-      let nowTime : number;
       let timeout_arr : NodeJS.Timeout[] = [];
       let timeout : NodeJS.Timeout;
 
@@ -28,7 +27,6 @@ class ProgressStore {
       (config:AxiosRequestConfig )=> {
 
       // 요청을 보내기 전에 수행할 일
-      nowTime=performance.now();
       console.log('request', new Date());
       cnt_axios++;
       console.log('cnt_axios', cnt_axios);
@@ -68,7 +66,7 @@ class ProgressStore {
           timeout_arr.map((timeout)=>(
             clearTimeout(timeout)
           ));
-          
+
           this.store_active = false;
       }
 

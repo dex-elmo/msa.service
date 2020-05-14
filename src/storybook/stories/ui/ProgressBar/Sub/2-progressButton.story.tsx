@@ -2,7 +2,7 @@ import React, { Component,CSSProperties } from 'react'
 import { Button} from 'semantic-ui-react'
 import docs from './docs'
 import autoBind from 'auto-bind';
-import { Dimmer, Loader, Segment} from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 import { observable } from 'mobx';
 import {observer} from "mobx-react";
 
@@ -10,14 +10,14 @@ export const progressButton = (props: any) => {
   //
   @observer
   class ProgressButtonStory extends Component{
-    
+
     @observable store_active = false;
 
 
     componentDidMount(){
       autoBind(this);
     }
-  
+
     onProgress(){
       this.store_active = true;
     }
@@ -31,7 +31,7 @@ export const progressButton = (props: any) => {
       const style1:CSSProperties ={
         backgroundColor : 'pink'
       }
-      
+
 
       return (
         <div style={style1}>

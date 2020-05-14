@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Form as SemanticForm, FormProps } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
-import searchStore from '~/lib/service/store/search/SearchStore';
+import searchStore from '~/lib/service/search/store/SearchStore';
 
 interface Props extends FormProps {
   onSearch:Function
