@@ -1,5 +1,5 @@
-import ProgressStore from "./store/progress/ProgressStore";
-import searchStore from './store/search/SearchStore';
+import ProgressStore from "./progress/store/ProgressStore";
+import searchStore from './search/store/SearchStore';
 
 const store = {
   progressStore: ProgressStore.instance
