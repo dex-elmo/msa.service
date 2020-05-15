@@ -1,1 +1,5 @@
-export default null;
+import PageTabItemModel from './pageTab/PageTabItemModel';
+
+export {
+  PageTabItemModel,
+}

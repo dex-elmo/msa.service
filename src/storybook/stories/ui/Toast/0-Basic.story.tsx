@@ -45,7 +45,6 @@ export const Toast = (props: any) => {
           <Button
             circular
             color="instagram"
-            size="big"
             onClick={ this.notify }
           >
             토스트 날려죠!

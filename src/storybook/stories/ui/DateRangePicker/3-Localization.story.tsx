@@ -28,8 +28,7 @@ export const Local = (props: any) => {
         >
           <Button
             circular
-            color="instagram"
-            size="big"
+            color="youtube"
           >
             안녕, 한국달력
           </Button>
@@ -43,7 +42,6 @@ export const Local = (props: any) => {
           <Button
             circular
             color="instagram"
-            size="big"
           >
             안녕, 기본달력
           </Button>

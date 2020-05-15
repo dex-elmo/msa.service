@@ -30,7 +30,6 @@ export const Simple = (props: any) => {
             <Button
               circular
               color="instagram"
-              size="big"
             >
               안녕, 기본달력
             </Button>

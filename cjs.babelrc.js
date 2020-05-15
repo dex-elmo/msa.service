@@ -9,12 +9,12 @@ module.exports = {
     ['@babel/plugin-proposal-class-properties', { loose: true }],
     [
       'module-resolver', {
-        root: ['./src'],
-        alias: {
-          '^~/(.+)': ([, currentFile]) => `./lib/${currentFile}`
-          ,
-        },
+      root: ['./src'],
+      alias: {
+        '^~/(.+)': ([, currentFile]) => `./lib/${currentFile}`
+        ,
       },
+    },
     ],
   ],
 };
