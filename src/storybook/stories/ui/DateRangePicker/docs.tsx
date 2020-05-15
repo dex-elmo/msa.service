@@ -5,9 +5,11 @@
  * - author: Sungyub NA <mailto: syna@nuritelecom.com>
  */
 
+import { DateRangePicker } from '~/lib';
+
 export default {
-  title: 'component|Toast',
-  component: null,
+  title: 'component|DateRangePicker',
+  component: DateRangePicker, // lib class component
   parameters: {
     // docs: {
     //   page: () => (

@@ -1,1 +1,1 @@
-export { default } from './toastModule'
+export { default } from './toastModule';

@@ -1,5 +1,5 @@
 import * as alert from './alert';
-import { default as toast } from './toast'
+import { default as toast } from './toast';
 
 export {
   alert,

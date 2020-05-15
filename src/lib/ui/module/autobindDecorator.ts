@@ -83,6 +83,7 @@ export function boundClass(target: any) {
     }
   }
 
+  // eslint-disable-next-line array-callback-return
   keys.map((key: any) => {
     // Ignore special case target method
     if (key === 'constructor' || excludedReactMethods.some((method) => method === key)) {

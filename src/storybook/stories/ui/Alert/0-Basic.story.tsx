@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import docs from './docs'
-import {Button} from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import * as alert from '~/lib/ui/module/alert';
 import AlertComponent from "~/lib/ui/Alert";
 
@@ -8,11 +8,19 @@ export const Alert = (props: any) => {
   //
   class AlertStory extends Component {
 
-    showAlert(header:string|object, contents:string|object, param:any){
-      alert.show(header, contents, param);
+    param = {
+      size: 'mini',
+      centered: true,
+      onClosed: true,
+      dimmer: true,
+      actions: [{ key: '1', content: 'ok', color: 'green' }, { key: '2', content: 'close', color: 'grey' }]
+    };
+
+    showAlert(header: string | object, contents: string | object) {
+      alert.show(header, contents, this.param);
     }
 
-    render () {
+    render() {
       const header =
         <div>
           <h3>header</h3>
@@ -25,21 +33,12 @@ export const Alert = (props: any) => {
         </div>
       ;
 
-      const param = {
-        size : 'mini',
-        centered : true,
-        onClosed : true,
-        dimmer : true,
-        actions: [{key : '1', content:'ok', color:'green'} , {key : '2', content:'close', color:'grey'}]
-      };
-
-      const param_noParam = {
-      };
+      const param_noParam = {};
 
       return (
         <div>
-          <Button onClick={() => this.showAlert(header, contents, param)}>Alert</Button>
-          <Button onClick={() => this.showAlert(header, contents, param_noParam)}>no param</Button>
+          <Button onClick={() => this.showAlert(header, contents)}>Alert</Button>
+          <Button onClick={() => this.showAlert(header, contents)}>no param</Button>
 
           <AlertComponent/>
         </div>

@@ -4,9 +4,9 @@ const {
   addBabelPlugins,
   removeModuleScopePlugin,
   override,
-} = require('customize-cra')
+} = require('customize-cra');
 
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   webpack: override(
@@ -19,11 +19,12 @@ module.exports = {
   ),
   devServer: (configFunction) => (proxy, allowedHost) => {
     const { proxy: propertiesProxy } = require(
-      './config/devServer.properties.js')
-    let targetProxy = proxy
+      './config/devServer.properties.js',
+    );
+    let targetProxy = proxy;
 
-    if (!targetProxy && propertiesProxy && typeof propertiesProxy ===
-      'object') {
+    if (!targetProxy && propertiesProxy && typeof propertiesProxy
+      === 'object') {
       targetProxy = Object.entries(propertiesProxy).
         reduce((prev, [contextKey, context]) => ({
           ...prev,
@@ -35,8 +36,8 @@ module.exports = {
               : true,
             secure: 'secure' in context ? context.secure : false,
           },
-        }), {})
+        }), {});
     }
-    return configFunction(targetProxy, allowedHost)
+    return configFunction(targetProxy, allowedHost);
   },
-}
+};
