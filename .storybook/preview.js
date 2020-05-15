@@ -3,6 +3,7 @@ import { addDecorator } from '@storybook/react'
 
 import React from 'react'
 import { Provider } from 'mobx-react'
+import App from '../src/storybook/stories/App'
 // import { store } from '@nara.drama/echo';
 
 // import { PatronModel, WorkspacesModel, patronInfo } from '@nara.platform/dock';
@@ -26,7 +27,9 @@ if (process.env.NODE_ENV === 'development') {
 configurePreview(() => {
   addDecorator(storyFn => (
     <Provider>
-      {storyFn()}
+        <App/>
+        {storyFn()}
+       
     </Provider>
   ))
 })
