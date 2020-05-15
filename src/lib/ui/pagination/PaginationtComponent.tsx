@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Pagination } from "semantic-ui-react";
+import 'semantic-ui-css/semantic.min.css';
 
 interface Props {
   current:number,
@@ -14,7 +15,6 @@ class PaginationComponent extends Component<Props> {
 
     return (
       <Pagination
-        //defaultActivePage={1}
         activePage={this.props.current}
         totalPages={totalPage}
         onPageChange={(event, data) => {this.props.clickHandler(data.activePage as number)}}
@@ -24,32 +24,3 @@ class PaginationComponent extends Component<Props> {
 }
 
 export default PaginationComponent;
-
-
-/*
-import React, { Component } from "react";
-import { Pagination } from "semantic-ui-react";
-import { PaginationStore, store } from '~/lib/service';
-import {observer} from "mobx-react";
-
-interface Props {
-  paginationStore?: PaginationStore,
-  clickHandler(currPage:number): void,
-}
-
-@observer
-class PaginationComponent extends Component<Props> {
-  render() {
-    const { current, totalPage } = store.paginationStore;
-    return (
-      <Pagination
-        activePage={current}
-        totalPages={totalPage}
-        onPageChange={(event, data) => {this.props.clickHandler(data.activePage as number)}}
-      />
-    );
-  }
-}
-
-export default PaginationComponent;
-*/

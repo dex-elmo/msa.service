@@ -17,6 +17,9 @@
     "react": "^16.13.1"
   },
   "dependencies": {
+    "ag-grid-community": "^23.1.0",
+    "ag-grid-enterprise": "^23.1.0",
+    "ag-grid-react": "^23.1.0",
     "axios": "^0.19.2",
     "bootstrap": "^3.4.1",
     "bootstrap-daterangepicker": "^3.0.5",
