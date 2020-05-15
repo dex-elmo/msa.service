@@ -1,0 +1,10 @@
+### Configuration Folders / Fils
+.storybook/**.js
+config/**.js
+*.babelrc.js
+config-overrides.js
+
+### Build Files
+es/**/*
+lib/**/*
+types/**/*

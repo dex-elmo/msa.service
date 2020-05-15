@@ -1,5 +1,4 @@
 import React from 'react'
-// import {Modal} from '@nuri/component';
 import {Modal} from '~/lib';
 
 export default {

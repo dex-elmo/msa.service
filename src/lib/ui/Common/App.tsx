@@ -24,13 +24,13 @@ class App extends Component<Props>{
   };
 
   render(){
-    const { open , contentContent, size, centered, onClosed, header, headerContent, content, dimmer, actions, closeIcon} = store.alertStore;
+    const { open , size, centered, onClosed, header, contents, dimmer, actions} = store.alertStore;
 
     return(
       <>
-        <Modal open={open} size={size} centered={centered} dimmer={dimmer} onClose={onClosed || actions === null ? this.close : this.show} closeIcon={closeIcon}>
-          {header ? <Modal.Header content={headerContent} /> : ''}
-          {content ? <Modal.Content content={contentContent} /> : ''}
+        <Modal open={open} size={size} centered={centered} dimmer={dimmer} onClose={onClosed || actions === null ? this.close : this.show}>
+          {header ? <Modal.Header content={header} /> : ''}
+          {contents ? <Modal.Content content={contents} /> : ''}
           {actions !== null ? <Modal.Actions actions={actions} onActionClick={(event, data) => { this.close(); }} /> : ''}
         </Modal>
       </>
