@@ -7,12 +7,7 @@
 
 import React, { Component } from 'react';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
-
 import './daterangepicker.css';
-import 'bootstrap/dist/css/bootstrap.css'
-import moment, { Moment } from 'moment';
-
-type DateOrString = string | moment.Moment | Date;
 
 interface NuriDateRangePickerProps
   extends ReactBootstrapDaterangepicker.Props {
@@ -22,16 +17,19 @@ interface NuriDateRangePickerProps
 
 class DaterangepickerComponent
   extends Component<NuriDateRangePickerProps> {
-
   static defaultProps = {
     locale: {
-      format: 'YYYY-MM-DD'
-    }
-  }
+      format: 'YYYY-MM-DD',
+    },
+    buttonClasses: ['ui mini button'],
+    applyClass: 'primary',
+    cancelClass: 'basic',
+  };
 
   render() {
     const {
       lang = 'en',
+      children,
       ...otherProps
     } = this.props;
 
@@ -47,24 +45,23 @@ class DaterangepickerComponent
             [
               '1월', '2월', '3월', '4월', '5월', '6월',
               '7월', '8월', '9월', '10월', '11월', '12월',
-            ]
-        }
+            ],
+        };
         break;
       default: // case 'en':
         otherProps.locale = {
           format: 'MM-DD-YYYY',
-          separator: " ~ ",
-        }
+          separator: ' ~ ',
+        };
         break;
     }
 
     return (
       <DateRangePicker { ...otherProps }>
-        { this.props.children }
+        { children }
       </DateRangePicker>
     );
   }
-
 }
 
 export default DaterangepickerComponent;

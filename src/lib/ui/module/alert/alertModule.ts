@@ -11,7 +11,6 @@ export function confirm(...args: any) {
   AlertStore.instance.confirm(args[0], args[1]);
 
   if (argLength > 2) {
-    console.log('asdfasdfadsf')
     promise1().then(function (result: any) {
       console.log(result);
       if (AlertStore.instance.confirmed) {

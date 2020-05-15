@@ -4,7 +4,7 @@ import { store } from '~/lib/service';
 import autobind from "~/lib/ui/module/autobindDecorator";
 import * as alert from '~/lib/ui/module/alert/index';
 import {observer} from "mobx-react";
-import {AlertStore} from "../../../../types/service";
+import {AlertStore} from '~/lib/service'
 
 interface Props {
   /** 헤더 */
@@ -28,7 +28,7 @@ interface Props {
  * Alert 함수형 컴포넌트입니다.
  *
  * - `Alert` 컴포넌트를 코드에 삽입해야 합니다.
- * - `alert`를 import 한 후 함수형으로 사용합니다. ex) `alert.show()`
+ * - `alert`를 import 한 후 함수형으로 사용합니다. ex) `alert.alert()`
  * - `show()`의 파라미터는 `header, contents, param`입니다.
  */
 @observer
