@@ -3,7 +3,7 @@
     "baseUrl": "src",
     "paths": {
       "~/*": ["*"],
-      "nuri-search-box-component": ["lib"]
+      "@nuri/component": ["lib"]
     }
   }
 }
