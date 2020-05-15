@@ -1,18 +1,19 @@
-import ProgressStore from "./progress/store/ProgressStore";
+import ProgressStore from './progress/store/ProgressStore';
 import searchStore from './search/store/SearchStore';
-import AlertStore  from "./AlertStore";
+import AlertStore from './AlertStore';
 
 const store = {
   alertStore: AlertStore.instance,
-  progressStore: ProgressStore.instance
+  progressStore: ProgressStore.instance,
 };
 
-export  {
+export {
   store,
-  ProgressStore
-}
+  AlertStore,
+  ProgressStore,
+};
 
 export default {
   searchStore,
-  AlertStore
-}
+  AlertStore,
+};

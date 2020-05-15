@@ -24,7 +24,7 @@ export const WithDate = (props: any) => {
             startDate={ startDate }
             endDate={ endDate }
           >
-            <Button circular color="instagram" size="big">
+            <Button circular color="youtube">
               안녕, 한국달력
             </Button>
           </DateRangePicker>

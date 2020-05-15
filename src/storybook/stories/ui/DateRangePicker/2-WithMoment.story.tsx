@@ -25,7 +25,7 @@ export const WithMoment = (props: any) => {
             startDate={ startDate }
             endDate={ endDate }
           >
-            <Button circular color="instagram" size="big">
+            <Button circular color="instagram">
               안녕, 기본달력
             </Button>
           </DateRangePicker>
