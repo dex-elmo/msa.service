@@ -75,9 +75,6 @@
     "build:cjs": "export NODE_ENV=production && npx babel src/lib --config-file ./cjs.babelrc.js --out-dir lib/lib --extensions .ts,.tsx --delete-dir-on-start",
     "build:types": "rm -rf types && tsc -p tsconfig.types.json"
   },
-  "publishConfig": {
-    "registry": "http://172.16.10.162:8081/repository/npm-private/"
-  },
   "eslintConfig": {
     "extends": "react-app"
   },
