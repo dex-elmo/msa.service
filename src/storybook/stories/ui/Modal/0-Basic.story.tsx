@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import docs from './docs'
 import {Modal} from "~/lib";
-import {PropTypes} from "mobx-react";
 
-export const ModalStory = (props: any) => {
+export const Basic = (props: any) => {
   //
   class Story extends Component {
 
@@ -19,7 +18,7 @@ export const ModalStory = (props: any) => {
         </div>
       ;
 
-      const content =
+      const contents =
         <div>
           <h3>title</h3>
           <p>A</p>
@@ -35,13 +34,13 @@ export const ModalStory = (props: any) => {
         </div>
       ;
 
-      // const actions = [{key : 'handle', content:'yes', color:'green'} , {key : '2', content:'no', color:'grey'}];
-      const actions = [{key : 'handle', content:'yes', color:'green', func:this.handle} , {key : '2', content:'no', color:'grey', func:this.handle}];
+      // const actions = [{key : 'handle', content:'yes1', color:'green'} , {key : '2', content:'no', color:'grey'}];
+      const actions = [{key : '1', content:'yes', color:'green', func:this.handle} , {key : '2', content:'no', color:'grey', func:this.handle}];
 
-      const imgSrc = 'https://react.semantic-ui.com/images/avatar/large/rachel.png';
+      const image = 'https://react.semantic-ui.com/images/avatar/large/rachel.png';
 
       return (
-          <Modal contentContent={content} headerContent={header} actions={actions} imgSrc={imgSrc} />
+          <Modal contents={contents} header={header} actions={actions} image={image} />
       )
     }
   }
@@ -49,8 +48,8 @@ export const ModalStory = (props: any) => {
   return <Story {...props} />
 };
 
-ModalStory.story = {
-  name: 'modal',
+Basic.story = {
+  name: 'basic',
 };
 
 export default {

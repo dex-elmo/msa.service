@@ -10,19 +10,13 @@ class AlertStore {
   open:boolean = false;
 
   @observable
-  headerContent:string = '';
+  header:string|object = '';
 
   @observable
-  contentContent:string = '';
+  contents:string|object = '';
 
   @observable
-  header:boolean = true;
-
-  @observable
-  content:boolean = true;
-
-  @observable
-  size:any = 'mini';
+  size: 'mini' | 'tiny' | 'small' | 'large' | 'fullscreen' = 'mini';
 
   @observable
   centered:boolean = true;
@@ -31,28 +25,45 @@ class AlertStore {
   onClosed:boolean = true;
 
   @observable
-  dimmer:any = true;
+  dimmer: true | 'blurring' | 'inverted' = true;
 
   @observable
-  actions:string[] | null = [];
+  actions:{key:string, content:string, color:string}[] | null = [];
 
   @observable
-  closeIcon:boolean = false;
+  confirmed:boolean = false;
 
   @action
-  show(header:string, content:string, param:any) {
+  alert(content:string|object, param:any) {
     this.open = true;
-    this.headerContent = header;
-    this.contentContent = content;
+    this.contents = content;
+    this.confirmed = false;
 
+    param.header !== undefined || '' ?  this.header = param.header : this.header = '';
     param.size !== undefined || '' ?  this.size = param.size : this.size = 'mini';
     param.centered !== undefined || '' ? this.centered = param.centered : this.centered = true;
     param.onClosed !== undefined || '' ? this.onClosed = param.onClosed : this.onClosed = true;
     param.dimmer !== undefined || '' ? this.dimmer = param.dimmer : this.dimmer = true;
-    param.header !== undefined || '' ? this.header = param.header : this.header = true;
-    param.content !== undefined || '' ? this.content = param.content : this.content = true;
-    param.actions !== undefined || '' ? this.actions = param.actions : this.actions = null;
-    param.closeIcon !== undefined || '' ? this.closeIcon = param.closeIcon : this.closeIcon = false;
+    param.actions !== undefined || '' ? this.actions = param.actions.slice(0,1) : this.actions = null;
+  }
+
+  @action
+  confirm(content:string|object, param:any) {
+    this.open = true;
+    this.contents = content;
+    this.confirmed = false;
+
+    param.header !== undefined || '' ?  this.header = param.header : this.header = '';
+    param.size !== undefined || '' ?  this.size = param.size : this.size = 'mini';
+    param.centered !== undefined || '' ? this.centered = param.centered : this.centered = true;
+    param.onClosed !== undefined || '' ? this.onClosed = param.onClosed : this.onClosed = true;
+    param.dimmer !== undefined || '' ? this.dimmer = param.dimmer : this.dimmer = true;
+    param.actions !== undefined || '' ? this.actions = param.actions.slice(0,2) : this.actions = null;
+  }
+
+  @action
+  setConfirmed(){
+    this.confirmed = true;
   }
 
   @action

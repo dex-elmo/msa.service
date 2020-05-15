@@ -1,11 +1,9 @@
 import React from 'react'
-
-// import { Echo } from '@nara.drama/echo';
-// import { DocsPage } from '@nara.platform/storybook';
+import {Alert} from "~/lib";
 
 export default {
-  title: 'component|Echo',
-  component: null,
+  title: 'component|Confirm',
+  component: Alert,
   parameters: {
     // docs: {
     //   page: () => (
