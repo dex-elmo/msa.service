@@ -28,19 +28,42 @@ class AlertStore {
   dimmer: true | 'blurring' | 'inverted' = true;
 
   @observable
-  actions:string[] | null = [];
+  actions:{key:string, content:string, color:string}[] | null = [];
+
+  @observable
+  confirmed:boolean = false;
 
   @action
-  show(header:string|object, content:string|object, param:any) {
+  alert(content:string|object, param:any) {
     this.open = true;
-    this.header = header;
     this.contents = content;
+    this.confirmed = false;
 
+    param.header !== undefined || '' ?  this.header = param.header : this.header = '';
     param.size !== undefined || '' ?  this.size = param.size : this.size = 'mini';
     param.centered !== undefined || '' ? this.centered = param.centered : this.centered = true;
     param.onClosed !== undefined || '' ? this.onClosed = param.onClosed : this.onClosed = true;
     param.dimmer !== undefined || '' ? this.dimmer = param.dimmer : this.dimmer = true;
-    param.actions !== undefined || '' ? this.actions = param.actions : this.actions = null;
+    param.actions !== undefined || '' ? this.actions = param.actions.slice(0,1) : this.actions = null;
+  }
+
+  @action
+  confirm(content:string|object, param:any) {
+    this.open = true;
+    this.contents = content;
+    this.confirmed = false;
+
+    param.header !== undefined || '' ?  this.header = param.header : this.header = '';
+    param.size !== undefined || '' ?  this.size = param.size : this.size = 'mini';
+    param.centered !== undefined || '' ? this.centered = param.centered : this.centered = true;
+    param.onClosed !== undefined || '' ? this.onClosed = param.onClosed : this.onClosed = true;
+    param.dimmer !== undefined || '' ? this.dimmer = param.dimmer : this.dimmer = true;
+    param.actions !== undefined || '' ? this.actions = param.actions.slice(0,2) : this.actions = null;
+  }
+
+  @action
+  setConfirmed(){
+    this.confirmed = true;
   }
 
   @action

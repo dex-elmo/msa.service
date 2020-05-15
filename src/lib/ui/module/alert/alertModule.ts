@@ -1,9 +1,44 @@
-import { AlertStore } from '~/lib/service';
+import {AlertStore} from '~/lib/service';
 
-export function show(header:string|object, content:string|object, param:any) {
-  AlertStore.instance.show(header, content, param);
+export function alert(...args: any) {
+  AlertStore.instance.alert(args[0], args[1]);
 }
 
-export function close(){
+export function confirm(...args: any) {
+  // ...args args[0]..
+  const argLength = args.length
+
+  AlertStore.instance.confirm(args[0], args[1]);
+
+  if (argLength > 2) {
+    console.log('asdfasdfadsf')
+    promise1().then(function (result: any) {
+      console.log(result);
+      if (AlertStore.instance.confirmed) {
+        args[2]();
+      }
+    }).catch(e => {
+      // 처리하고 싶은 방식
+    })
+  }
+}
+
+export function close() {
   AlertStore.instance.close();
+}
+
+export function confirmed() {
+  AlertStore.instance.setConfirmed();
+}
+
+function promise1() {
+  return new Promise(function (resolve, reject) {
+    console.log(AlertStore.instance.confirmed);
+
+    if (AlertStore.instance.confirmed) {
+      resolve("yes");
+    } else {
+      reject("no");
+    }
+  });
 }
