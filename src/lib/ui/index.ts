@@ -1,8 +1,8 @@
+export * from './module';
 export { default as SearchBox } from './SearchBox';
 export { default as ProgressBar } from './ProgressBar';
 export { ProgressModule } from './module';
 export { default as PageTab } from './PageTab';
-export * from './module';
 export { default as Alert } from './Alert';
 export { default as App } from './Common';
 export { default as Modal } from './Modal';
@@ -10,3 +10,4 @@ export { default as Toast } from './Toast';
 export { default as DateRangePicker } from './DateRagePicker';
 export { default as Pagination } from './pagination';
 export { default as AgGrid } from './AgGrid';
+export { default as NewWindow } from './NewWindow';
