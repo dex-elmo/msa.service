@@ -1,9 +1,7 @@
-import React from 'react'
-
-import {AgGrid} from '~/lib';
+import { AgGrid } from '~/lib';
 
 export default {
-  title: 'component|ag_grid',
+  title: 'component|AgGrid',
   component: AgGrid, // lib class component
   parameters: {
     // docs: {
@@ -12,5 +10,4 @@ export default {
     //   ),
     // },
   },
-}
-
+};

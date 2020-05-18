@@ -1,6 +1,4 @@
-import React from 'react'
-
-import {Pagination} from '~/lib';
+import { Pagination } from '~/lib';
 
 export default {
   title: 'component|Pagination',
@@ -12,5 +10,4 @@ export default {
     //   ),
     // },
   },
-}
-
+};

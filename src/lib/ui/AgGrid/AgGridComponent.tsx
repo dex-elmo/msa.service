@@ -1,26 +1,27 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import {observer} from "mobx-react";
+import { observer } from 'mobx-react';
 
-//import 'ag-grid-enterprise';
+import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 interface Props {
-  columnDefs: [],
-  rowData: [],
+  columnDefs: { headerName: string; field: string; }[],
+  rowData: { make: string; model: string; price: number; }[],
   clickHandler(data:any): void,
 }
 
 @observer
 class AgGridComponent extends Component<Props> {
   render() {
+    const { columnDefs, rowData, clickHandler } = this.props;
+
     return (
       <AgGridReact
-        //rowSelection="multiple"
-        columnDefs={this.props.columnDefs}
-        rowData={this.props.rowData}
-        onRowClicked={ e => {this.props.clickHandler(e.data as {})} }
+        columnDefs={ columnDefs }
+        rowData={ rowData }
+        onRowClicked={ (e) => { clickHandler(e.data as {}); } }
       />
     );
   }
