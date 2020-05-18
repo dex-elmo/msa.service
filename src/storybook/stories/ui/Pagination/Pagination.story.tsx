@@ -1,16 +1,8 @@
-import React, { Component } from 'react'
-import docs from './docs'
-//Test
+import React, { Component } from 'react';
 import { Dropdown } from 'semantic-ui-react';
-//pagination
-import { Pagination } from "~/lib";
+import { Pagination } from '~/lib';
 
-const options = [
-  { value: '10', text: '10' },
-  { value: '20', text: '20' },
-  { value: '50', text: '50' },
-  { value: '100', text: '100' },
-]
+import docs from './docs';
 
 interface Props {
   current:number,
@@ -24,10 +16,16 @@ interface States {
   totalCnt:number,
 }
 
-export const basic = (props: any) => {
+const options = [
+  { value: '10', text: '10' },
+  { value: '20', text: '20' },
+  { value: '50', text: '50' },
+  { value: '100', text: '100' },
+];
 
+export const basic = (props: any) => {
   class Story extends Component<Props, States> {
-    constructor(props:any) {
+    constructor() {
       super(props);
       this.state = {
         current: 1,
@@ -37,63 +35,59 @@ export const basic = (props: any) => {
       this.getCurrent = this.getCurrent.bind(this);
     }
 
-    //Click Event
-    getCurrent(current:number){
+    componentDidMount() {
       this.setState({
-        current: current,
-      })
-
-      //test
-      this.movePage();
+        totalCnt: 523,
+      });
     }
 
-    //limit
-    onChangeLimit(limit:number){
+    onChangeLimit(limit:number) {
       this.setState({
         current: 1,
-        limit: limit,
-      })
+        limit,
+      });
 
       this.movePage();
     }
 
-    //list get method
-    movePage(){
+    getCurrent(current:number) {
+      this.setState({
+        current,
+      });
+
+      this.movePage();
+    }
+
+    movePage() {
       console.log(this.state);
     }
 
-    // view
-    componentDidMount(){
-      this.setState({
-        totalCnt: 523,
-      })
-    }
+    render() {
+      const { current, limit, totalCnt } = this.state;
 
-    render () {
       return (
         <div>
-          Total: {this.state.totalCnt as number}<br/>
+          Total: { totalCnt as number } <br />
           limit:
           <Dropdown
             selection
-            defaultValue={'10'}
-            options={options}
-            onChange={(e, data) => this.onChangeLimit(data.value as number)}
+            defaultValue={ 10 }
+            options={ options }
+            onChange={ (e, data) => this.onChangeLimit(data.value as number) }
           />
-          <br/>
+          <br />
           <Pagination
-            current={this.state.current}
-            limit={this.state.limit}
-            totalCnt={this.state.totalCnt}
-            clickHandler={this.getCurrent}
+            current={ current }
+            limit={ limit }
+            totalCnt={ totalCnt }
+            clickHandler={ this.getCurrent }
           />
         </div>
-
-      )
+      );
     }
   }
 
-  return <Story {...props} />
+  return <Story { ...props } />;
 };
 
 basic.story = {
@@ -104,4 +98,4 @@ export default {
   title: 'component|Pagination',
   component: docs.component,
   parameters: { ...docs.parameters },
-}
+};
