@@ -11,17 +11,13 @@ interface Props {
 
 class PaginationComponent extends Component<Props> {
   render() {
-    const {
-      current, limit, totalCnt, clickHandler,
-    } = this.props;
-
-    const totalPage = Math.ceil(totalCnt / limit);
+    const totalPage = Math.ceil(this.props.totalCnt / this.props.limit);
 
     return (
       <Pagination
-        activePage={ current }
+        activePage={ this.props.current }
         totalPages={ totalPage }
-        onPageChange={ (event, data) => { clickHandler(data.activePage as number); } }
+        onPageChange={ (event, data) => { this.props.clickHandler(data.activePage as number); } }
       />
     );
   }
