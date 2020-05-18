@@ -10,3 +10,4 @@ export { default as Toast } from './Toast';
 export { default as DateRangePicker } from './DateRagePicker';
 export { default as Pagination } from './pagination';
 export { default as AgGrid } from './AgGrid';
+export { default as NewWindow } from './NewWindow';
