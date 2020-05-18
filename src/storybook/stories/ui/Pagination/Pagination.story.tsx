@@ -4,6 +4,13 @@ import { Pagination } from '~/lib';
 
 import docs from './docs';
 
+const options = [
+  { value: '10', text: '10' },
+  { value: '20', text: '20' },
+  { value: '50', text: '50' },
+  { value: '100', text: '100' },
+];
+
 interface Props {
   current:number,
   limit:number,
@@ -16,16 +23,10 @@ interface States {
   totalCnt:number,
 }
 
-const options = [
-  { value: '10', text: '10' },
-  { value: '20', text: '20' },
-  { value: '50', text: '50' },
-  { value: '100', text: '100' },
-];
-
 export const basic = (props: any) => {
+
   class Story extends Component<Props, States> {
-    constructor() {
+    constructor(props:any) {
       super(props);
       this.state = {
         current: 1,
@@ -35,54 +36,60 @@ export const basic = (props: any) => {
       this.getCurrent = this.getCurrent.bind(this);
     }
 
+    // view
     componentDidMount() {
       this.setState({
         totalCnt: 523,
       });
     }
 
+    //limit
     onChangeLimit(limit:number) {
       this.setState({
         current: 1,
-        limit,
+        limit: limit,
       });
 
       this.movePage();
     }
 
+    //Click Event
     getCurrent(current:number) {
       this.setState({
-        current,
+        current: current,
       });
 
+      //test
       this.movePage();
     }
 
+    //list get method
     movePage() {
       console.log(this.state);
     }
 
-    render() {
-      const { current, limit, totalCnt } = this.state;
 
+
+    render() {
       return (
         <div>
-          Total: { totalCnt as number } <br />
+          Total: { this.state.totalCnt as number }<br />
           limit:
           <Dropdown
             selection
-            defaultValue={ 10 }
+            defaultValue={'10'}
             options={ options }
             onChange={ (e, data) => this.onChangeLimit(data.value as number) }
           />
           <br />
           <Pagination
-            current={ current }
-            limit={ limit }
-            totalCnt={ totalCnt }
+            current={ this.state.current }
+            limit={ this.state.limit }
+            totalCnt={ this.state.totalCnt }
             clickHandler={ this.getCurrent }
           />
         </div>
+
       );
     }
   }
