@@ -11,7 +11,7 @@ const path = require('path');
 module.exports = {
   webpack: override(
     addDecoratorsLegacy(),
-    addBabelPlugins('@babel/plugin-proposal-class-properties'),
+    ...addBabelPlugins('@babel/plugin-proposal-class-properties'),
     removeModuleScopePlugin(),
     addWebpackAlias({
       '~': path.resolve(__dirname, './src'),
