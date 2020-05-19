@@ -1,6 +1,6 @@
 ### Configuration Folders / Fils
-.storybook/**.js
-config/**.js
+.storybook/**/*.js
+config/**/*.js
 *.babelrc.js
 config-overrides.js
 
