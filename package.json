@@ -1,6 +1,6 @@
 {
-  "name": "@nuri/component",
-  "version": "0.1.15",
+  "name": "@nuri/dex",
+  "version": "0.1.1",
   "private": false,
   "main": "lib/lib/index.js",
   "module": "es/lib/index.js",
@@ -17,6 +17,7 @@
     "react": "^16.13.1"
   },
   "dependencies": {
+    "@nuri/component": "^0.1.16",
     "ag-grid-community": "^23.1.0",
     "ag-grid-enterprise": "^23.1.0",
     "ag-grid-react": "^23.1.0",
@@ -116,7 +117,9 @@
       "no-plusplus": 0,
       "no-unused-vars": 0,
       "import/prefer-default-export": 0,
-      "react/destructuring-assignment": 0
+      "react/destructuring-assignment": 0,
+      "spaced-comment": 0,
+      "react/jsx-curly-spacing": 0
     }
   },
   "browserslist": {
