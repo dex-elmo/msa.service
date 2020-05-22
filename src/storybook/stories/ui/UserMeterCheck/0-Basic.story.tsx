@@ -5,10 +5,15 @@ import UserMeterCheck from '~/lib/ui/users/UserMeterCheck';
 
 export const Basic = (props: any) => {
   class Story extends Component {
+    handleMeter = (input: string) => {
+    };
+
     render() {
       return (
         <div>
-          <UserMeterCheck />
+          <UserMeterCheck
+            handleMeter={this.handleMeter}
+          />
         </div>
       );
     }

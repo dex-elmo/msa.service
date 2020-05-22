@@ -5,10 +5,13 @@ import SharedBirthOfDate from '~/lib/ui/shared/SharedBirthOfDate';
 
 export const Basic = (props: any) => {
   class Story extends Component {
+    handleBirth = (input: string) => {
+    }
+
     render() {
       return (
         <div>
-          <SharedBirthOfDate />
+          <SharedBirthOfDate handleBirth={this.handleBirth} />
         </div>
       );
     }

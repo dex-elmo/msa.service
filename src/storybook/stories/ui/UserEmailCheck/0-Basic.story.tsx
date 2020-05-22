@@ -6,13 +6,19 @@ import UserEmailCheck from '~/lib/ui/users/UserEmailCheck';
 export const Basic = (props: any) => {
   class Story extends Component {
     handleEmail = (input:string) => {
-      // console.log(input);
+      // console.log(input)
+    }
+
+    handleEmailCheck = (emailCheck: boolean) => {
     }
 
     render() {
       return (
         <div>
-          <UserEmailCheck handleEmail={this.handleEmail} />
+          <UserEmailCheck
+            handleEmail={this.handleEmail}
+            handleEmailCheck={this.handleEmailCheck}
+          />
         </div>
       );
     }

@@ -3,6 +3,10 @@ import { Select } from 'semantic-ui-react';
 import moment from 'moment';
 import autobind from '~/lib/ui/module/autobindDecorator';
 
+interface Props {
+  handleBirth:any,
+}
+
 interface State {
   yearList: { key: number, value: number, text: React.ReactText }[],
   monthList: { key: number, value: number, text: React.ReactText }[],
@@ -10,10 +14,11 @@ interface State {
   year: string,
   month: string,
   day: string,
+  birth: string,
 }
 
 @autobind
-class SharedBirthOfDate extends React.Component<any, State> {
+class SharedBirthOfDate extends React.Component<Props, State> {
   constructor(props:any) {
     super(props);
 
@@ -21,13 +26,16 @@ class SharedBirthOfDate extends React.Component<any, State> {
     const month = moment().month() + 1;
     const day = moment().date();
 
+    const month1 = month < 10 ? `0${month.toString()}` : month.toString();
+
     this.state = {
       yearList: [],
       monthList: [],
       dayList: [],
       year: year.toString(),
-      month: month < 10 ? `0${month.toString()}` : month.toString(),
+      month: month1,
       day: day.toString(),
+      birth: `${year}${month1}${day}`,
     };
   }
 
@@ -49,6 +57,8 @@ class SharedBirthOfDate extends React.Component<any, State> {
       yearList,
       monthList,
     });
+
+    this.props.handleBirth(this.state.birth);
   }
 
   changeYear = (e:any, value:any) => {
@@ -61,6 +71,9 @@ class SharedBirthOfDate extends React.Component<any, State> {
       year,
       day: dayRange < day ? '01' : day,
     });
+
+    const day1 = dayRange < day ? '01' : day;
+    this.props.handleBirth(`${year}${this.state.month}${day1}`);
   }
 
   changeMonth = (e:any, value:any) => {
@@ -73,6 +86,10 @@ class SharedBirthOfDate extends React.Component<any, State> {
       month: month < 10 ? `0${month.toString()}` : month.toString(),
       day: dayRange < day ? '01' : day,
     });
+
+    const month1 = month < 10 ? `0${month.toString()}` : month.toString();
+    const day1 = dayRange < day ? '01' : day;
+    this.props.handleBirth(`${this.state.year}${month1}${day1}`);
   }
 
   changeDay= (e:any, value:any) => {
@@ -81,6 +98,9 @@ class SharedBirthOfDate extends React.Component<any, State> {
     this.setState({
       day: day < 10 ? `0${day.toString()}` : day.toString(),
     });
+
+    const day1 = day < 10 ? `0${day.toString()}` : day.toString();
+    this.props.handleBirth(`${this.state.year}${this.state.month}${day1}`);
   }
 
   getDayList = (year:string, month:string) => {

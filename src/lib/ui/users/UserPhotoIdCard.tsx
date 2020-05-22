@@ -2,10 +2,12 @@ import React from 'react';
 import {
   Button, Input, Select, Table,
 } from 'semantic-ui-react';
+import { Modal } from '@nuri/component';
 import autobind from '~/lib/ui/module/autobindDecorator';
 import UserApi from '~/lib/service/users/api/UserApi';
 
 interface Props {
+  handlePhotoIdCard:any
 }
 
 interface State {
@@ -41,12 +43,18 @@ class UserPhotoIdCard extends React.Component<Props, State> {
   }
 
   render() {
+    const { type } = this.state;
+    const actions = [{ key: 'ok', content: 'ok', color: 'green' }, { key: 'cancel', content: 'cancel', color: 'grey' }];
+
     return (
       <>
         <Select placeholder="Select Id Card Type" options={this.idCard} onChange={this.changeType} />
         <Button content="Upload" onClick={this.uploadIdCard} />
+        <Modal header="bb" contents="aa" actions={actions} />
         <div>
-          {this.state.type} : <Input /> Please enter a number that identifies the ID card.
+          {type} :
+          <Input onChange={(e) => { this.props.handlePhotoIdCard(e.currentTarget.value); }} />
+          Please enter a number that identifies the ID card.
         </div>
       </>
     );
