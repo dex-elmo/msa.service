@@ -33,8 +33,8 @@ interface State {
   addrDetail: string;
   addrStreet: string;
   addrCity: string;
-  mobileNo: string;
-  meter: string;
+  phoneNo: string;
+  meterId: string;
   reason: string;
 }
 
@@ -62,8 +62,8 @@ class UserRegisterForm extends React.Component<Props, State> {
       addrDetail: '',
       addrStreet: '',
       addrCity: '',
-      mobileNo: '',
-      meter: '',
+      phoneNo: '',
+      meterId: '',
       reason: '',
     };
   }
@@ -96,6 +96,10 @@ class UserRegisterForm extends React.Component<Props, State> {
 
     if (branchType === 'CVS') {
       await this.makeVsCompanyList(this.state.esCompId);
+    }
+
+    if (branchType === 'CES') {
+      this.setState({ vsCompId: '' });
     }
   };
 
@@ -163,24 +167,23 @@ class UserRegisterForm extends React.Component<Props, State> {
     this.setState({ addrCity: e.currentTarget.value });
   }
 
-  handleMobileNo = (e:React.FormEvent<HTMLInputElement>) => {
-    this.setState({ mobileNo: e.currentTarget.value });
+  handlephoneNo = (e:React.FormEvent<HTMLInputElement>) => {
+    this.setState({ phoneNo: e.currentTarget.value });
   }
 
-  handleMeter = (input: string) => {
-    this.setState({ meter: input });
+  handleMeterId = (input: string) => {
+    this.setState({ meterId: input });
   };
 
   handleReason = (e:React.FormEvent<HTMLInputElement>) => {
     this.setState({ reason: e.currentTarget.value });
   }
 
-  handleFormSubmit = () => {
-    console.log('submit!!!');
+  handleFormSubmit = async () => {
     const {
       branch, compId, esCompId, vsCompId, email, emailCheck, photoIdCard,
       password, passwordConfirm, fnm, lnm, birth, sex, birthPlace,
-      addrDetail, addrCity, addrStreet, mobileNo, meter, reason,
+      addrDetail, addrCity, addrStreet, phoneNo, meterId, reason,
     } = this.state;
 
     console.log(`branch : ${branch}`);
@@ -200,16 +203,53 @@ class UserRegisterForm extends React.Component<Props, State> {
     console.log(`addrDetail : ${addrDetail}`);
     console.log(`addrCity : ${addrCity}`);
     console.log(`addrStreet : ${addrStreet}`);
-    console.log(`mobileNo : ${mobileNo}`);
-    console.log(`meter : ${meter}`);
+    console.log(`phoneNo : ${phoneNo}`);
+    console.log(`meterId : ${meterId}`);
     console.log(`reason : ${reason}`);
+
+    const params = {
+      user: {
+        address: {
+          city: addrCity,
+          detailAddress: addrDetail,
+          streetAddress: addrStreet,
+        },
+        birth: {
+          birthPlace,
+          birthday: birth,
+        },
+        cert: {
+          certFilePath: 'aaaaa',
+          certTypeCode: '123',
+        },
+        id: {
+          idFilePath: 'aaaa',
+          idSerialNo: 'aaa',
+          idTypeCode: 'aaa',
+        },
+        companyId: vsCompId === '' ? esCompId : vsCompId,
+        gender: sex,
+        name: {
+          firstName: fnm,
+          lastName: lnm,
+        },
+        password,
+        reason,
+        userId: email,
+        phoneNo,
+        meterId,
+      },
+    };
+
+    const returnData = await UserApi.createUser(params);
+    console.log(returnData);
   }
 
   render() {
     const {
       branch, esCompanyList, vsCompanyList, compId, email, photoIdCard,
       password, passwordConfirm, fnm, lnm, birth,
-      sex, birthPlace, addrDetail, addrCity, addrStreet, mobileNo, meter, reason,
+      sex, birthPlace, addrDetail, addrCity, addrStreet, phoneNo, meterId, reason,
     } = this.state;
 
     return (
@@ -336,14 +376,14 @@ class UserRegisterForm extends React.Component<Props, State> {
                 <Table.Row>
                   <Table.Cell width={2}>Mobile Number</Table.Cell>
                   <Table.Cell width={8} colSpan={3}>
-                    <Input onChange={this.handleMobileNo} />
+                    <Input onChange={this.handlephoneNo} />
                   </Table.Cell>
                 </Table.Row>
 
                 <Table.Row>
                   <Table.Cell width={2}>Meter ID</Table.Cell>
                   <Table.Cell width={8} colSpan={3}>
-                    <UserMeterCheck handleMeter={this.handleMeter} />
+                    <UserMeterCheck handleMeter={this.handleMeterId} />
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>
