@@ -8,7 +8,7 @@ function configureMiddleware (callback) {
     }
 
     router.use('/api/**', proxy({
-      target: 'http://34.84.45.31',
+      target: 'http://localhost:8080',
       secure: false,
       crossOrigin: true,
     }))
