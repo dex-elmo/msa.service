@@ -1,6 +1,6 @@
 {
-  "name": "@nuri/component",
-  "version": "0.1.15",
+  "name": "@nuri/dex",
+  "version": "0.1.1",
   "private": false,
   "main": "lib/lib/index.js",
   "module": "es/lib/index.js",
@@ -17,6 +17,7 @@
     "react": "^16.13.1"
   },
   "dependencies": {
+    "@nuri/component": "^0.1.17",
     "ag-grid-community": "^23.1.0",
     "ag-grid-enterprise": "^23.1.0",
     "ag-grid-react": "^23.1.0",
@@ -87,7 +88,7 @@
     "build:types": "npx rimraf types && tsc -p tsconfig.types.json"
   },
   "publishConfig": {
-    "registry": "http://140.238.6.30:8081/repository/npm-private/"
+    "registry": "http://172.16.55.140:8081/repository/npm-private/"
   },
   "eslintConfig": {
     "extends": [
@@ -100,13 +101,7 @@
       "react/jsx-one-expression-per-line": 0,
       "react/static-property-placement": 0,
       "react/no-this-in-sfc": 0,
-      "react/jsx-curly-spacing": [
-        2,
-        {
-          "when": "always",
-          "children": true
-        }
-      ],
+      "react/jsx-curly-spacing": 0,
       "react/jsx-props-no-spreading": 0,
       "import/no-named-default": 0,
       "import/no-extraneous-dependencies": 0,
@@ -116,7 +111,8 @@
       "no-plusplus": 0,
       "no-unused-vars": 0,
       "import/prefer-default-export": 0,
-      "react/destructuring-assignment": 0
+      "react/destructuring-assignment": 0,
+      "spaced-comment": 0
     }
   },
   "browserslist": {
