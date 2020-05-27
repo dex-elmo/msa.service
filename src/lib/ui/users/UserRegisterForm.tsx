@@ -186,26 +186,26 @@ class UserRegisterForm extends React.Component<Props, State> {
       addrDetail, addrCity, addrStreet, phoneNo, meterId, reason,
     } = this.state;
 
-    console.log(`branch : ${branch}`);
-    console.log(`compId : ${compId}`);
-    console.log(`esCompId : ${esCompId}`);
-    console.log(`vsCompId : ${vsCompId}`);
-    console.log(`email : ${email}`);
-    console.log(`emailCheck : ${emailCheck}`);
-    console.log(`photoIdCard : ${photoIdCard}`);
-    console.log(`password : ${password}`);
-    console.log(`passwordConfirm : ${passwordConfirm}`);
-    console.log(`fnm : ${fnm}`);
-    console.log(`lnm : ${lnm}`);
-    console.log(`birth : ${birth}`);
-    console.log(`sex : ${sex}`);
-    console.log(`birthPlace : ${birthPlace}`);
-    console.log(`addrDetail : ${addrDetail}`);
-    console.log(`addrCity : ${addrCity}`);
-    console.log(`addrStreet : ${addrStreet}`);
-    console.log(`phoneNo : ${phoneNo}`);
-    console.log(`meterId : ${meterId}`);
-    console.log(`reason : ${reason}`);
+    // console.log(`branch : ${branch}`);
+    // console.log(`compId : ${compId}`);
+    // console.log(`esCompId : ${esCompId}`);
+    // console.log(`vsCompId : ${vsCompId}`);
+    // console.log(`email : ${email}`);
+    // console.log(`emailCheck : ${emailCheck}`);
+    // console.log(`photoIdCard : ${photoIdCard}`);
+    // console.log(`password : ${password}`);
+    // console.log(`passwordConfirm : ${passwordConfirm}`);
+    // console.log(`fnm : ${fnm}`);
+    // console.log(`lnm : ${lnm}`);
+    // console.log(`birth : ${birth}`);
+    // console.log(`sex : ${sex}`);
+    // console.log(`birthPlace : ${birthPlace}`);
+    // console.log(`addrDetail : ${addrDetail}`);
+    // console.log(`addrCity : ${addrCity}`);
+    // console.log(`addrStreet : ${addrStreet}`);
+    // console.log(`phoneNo : ${phoneNo}`);
+    // console.log(`meterId : ${meterId}`);
+    // console.log(`reason : ${reason}`);
 
     const params = {
       user: {
@@ -222,22 +222,22 @@ class UserRegisterForm extends React.Component<Props, State> {
           certFilePath: 'aaaaa',
           certTypeCode: '123',
         },
+        companyId: vsCompId === '' ? esCompId : vsCompId,
+        gender: sex,
         id: {
           idFilePath: 'aaaa',
           idSerialNo: 'aaa',
           idTypeCode: 'aaa',
         },
-        companyId: vsCompId === '' ? esCompId : vsCompId,
-        gender: sex,
+        meterId,
         name: {
           firstName: fnm,
           lastName: lnm,
         },
         password,
+        phoneNo,
         reason,
         userId: email,
-        phoneNo,
-        meterId,
       },
     };
 

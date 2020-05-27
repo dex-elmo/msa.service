@@ -11,8 +11,10 @@ class UserApi {
     console.log('check meter');
   }
 
-  uploadFile = async () => {
-    console.log('upload file');
+  uploadFile = async (file:any) => {
+    console.log(file);
+    const data = await axios.post('/api/v2/station/customer/approve', file);
+    return data;
   }
 
   getEstationList = async () => {
@@ -20,6 +22,7 @@ class UserApi {
       params: {
         userType: 'CES',
       },
+      // visible: false,
     });
     return data;
   }
@@ -30,28 +33,13 @@ class UserApi {
         companyId,
         companyType: branchType,
       },
+      // visible: false,
     });
     return data;
   }
 
-  createUser = async (params:object) => {
-    console.log(params);
-    const data = await axios.post('/api/v2/user/signup', null, {
-      data: {
-        address: params.user.address,
-        birth: params.user.birth,
-        cert: params.user.cert,
-        id: params.user.id,
-        companyId: params.user.companyId,
-        gender: params.user.gender,
-        name: params.user.name,
-        password: params.user.password,
-        reason: params.user.reason,
-        userId: params.user.userId,
-        phoneNo: params.user.phoneNo,
-        meterId: params.user.meterId,
-      },
-    });
+  createUser = async (params:any) => {
+    const data = await axios.post('/api/v2/user/signup', params.user);
     return data;
   }
 }
