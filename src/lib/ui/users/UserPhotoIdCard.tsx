@@ -7,7 +7,9 @@ import autobind from '~/lib/ui/module/autobindDecorator';
 import UserApi from '~/lib/service/users/api/UserApi';
 
 interface Props {
-  handlePhotoIdCard:any
+  handleIdFilePath:any,
+  handleIdSerialNo:any,
+  handleIdTypeCode:any
 }
 
 interface State {
@@ -15,6 +17,7 @@ interface State {
   image:boolean;
   file: string,
   previewUrl: any,
+  open:boolean,
 }
 
 @autobind
@@ -35,6 +38,7 @@ class UserPhotoIdCard extends React.Component<Props, State> {
       image: false,
       file: '',
       previewUrl: '',
+      open: false,
     };
   }
 
@@ -42,25 +46,25 @@ class UserPhotoIdCard extends React.Component<Props, State> {
     this.setState({
       type: data.value,
     });
+    this.props.handleIdTypeCode(data.value);
+  }
+
+  showModal = () => {
+    this.setState({ open: true });
   }
 
   closeModal = () => {
     this.setState({
       file: '',
       previewUrl: '',
+      open: false,
     });
   }
 
-  uploadIdCard = async () => {
-    // await UserApi.uploadFile();
-  }
-
   handleFileOnChange = (event:any) => {
-    // console.log(event.target.files);
     event.preventDefault();
     const reader = new FileReader();
     const file = event.target.files[0];
-    console.log(file);
     reader.onloadend = () => {
       this.setState({
         file,
@@ -71,16 +75,24 @@ class UserPhotoIdCard extends React.Component<Props, State> {
   }
 
   approveFile = async () => {
+    if (this.state.file === '') {
+      window.alert('파일을 업로드 해주세요');
+      return false;
+    }
+
     const formData = new FormData();
-    console.log(this.state.file);
     formData.append('id_file_path', this.state.file);
-    console.log(formData);
-    const returnData = await UserApi.uploadFile(formData);
+    const filePath = await UserApi.uploadFile(formData);
+    this.setState({ open: false });
+    window.alert('파일 업로드 완료');
+
+    this.props.handleIdFilePath(filePath);
+    return true;
   }
 
   render() {
     const {
-      type, image, file, previewUrl,
+      type, image, file, previewUrl, open,
     } = this.state;
 
     let profilePreview = null;
@@ -91,9 +103,8 @@ class UserPhotoIdCard extends React.Component<Props, State> {
     return (
       <>
         <Select placeholder="Select Id Card Type" options={this.idCard} onChange={this.changeType} />
-        <Button content="Upload" onClick={this.uploadIdCard} />
 
-        <Modal trigger={<Button>Show Modal</Button>} size="mini" onClose={this.closeModal}>
+        <Modal trigger={<Button onClick={this.showModal}>Show Modal</Button>} size="mini" onClose={this.closeModal} open={open}>
           <Modal.Header style={{ textAlign: 'center' }}>Upload</Modal.Header>
           <Modal.Content>
             <Modal.Description>
@@ -110,14 +121,6 @@ class UserPhotoIdCard extends React.Component<Props, State> {
                 profilePreview
               }
               <div style={{ textAlign: 'center', padding: '10px 5px 10px 5px' }}>
-                {/*<div style={{ width: '50%', float: 'left' }}>*/}
-                {/*  <span style={{ verticalAlign: '-webkit-baseline-middle' }}>*/}
-                {/*    filename*/}
-                {/*  </span>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*  <Button style={{ width: '45%' }}>Upload</Button>*/}
-                {/*</div>*/}
                 <input
                   type="file"
                   accept="image/jpg,image/png,image/jpeg"
@@ -135,7 +138,7 @@ class UserPhotoIdCard extends React.Component<Props, State> {
 
         <div>
           {type} :
-          <Input onChange={(e) => { this.props.handlePhotoIdCard(e.currentTarget.value); }} />
+          <Input onChange={(e) => { this.props.handleIdSerialNo(e.currentTarget.value); }} />
           Please enter a number that identifies the ID card.
         </div>
       </>

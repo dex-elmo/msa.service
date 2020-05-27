@@ -22,7 +22,9 @@ interface State {
   compId: string;
   email: string;
   emailCheck: boolean;
-  photoIdCard: string;
+  idFilePath: string;
+  idSerialNo: string;
+  idTypeCode: string;
   password: string;
   passwordConfirm: string;
   fnm: string;
@@ -51,7 +53,9 @@ class UserRegisterForm extends React.Component<Props, State> {
       compId: '',
       email: '',
       emailCheck: false,
-      photoIdCard: '',
+      idFilePath: '',
+      idSerialNo: '',
+      idTypeCode: '',
       password: '',
       passwordConfirm: '',
       fnm: '',
@@ -123,8 +127,16 @@ class UserRegisterForm extends React.Component<Props, State> {
     this.setState({ emailCheck });
   }
 
-  handlePhotoIdCard = (input: string) => {
-    this.setState({ photoIdCard: input });
+  handleIdFilePath = (input: string) => {
+    this.setState({ idFilePath: input });
+  }
+
+  handleIdSerialNo = (input: string) => {
+    this.setState({ idSerialNo: input });
+  }
+
+  handleIdTypeCode = (input: string) => {
+    this.setState({ idTypeCode: input });
   }
 
   handlePassword = (e:React.FormEvent<HTMLInputElement>) => {
@@ -181,31 +193,10 @@ class UserRegisterForm extends React.Component<Props, State> {
 
   handleFormSubmit = async () => {
     const {
-      branch, compId, esCompId, vsCompId, email, emailCheck, photoIdCard,
+      branch, compId, esCompId, vsCompId, email, emailCheck, idFilePath, idSerialNo, idTypeCode,
       password, passwordConfirm, fnm, lnm, birth, sex, birthPlace,
       addrDetail, addrCity, addrStreet, phoneNo, meterId, reason,
     } = this.state;
-
-    // console.log(`branch : ${branch}`);
-    // console.log(`compId : ${compId}`);
-    // console.log(`esCompId : ${esCompId}`);
-    // console.log(`vsCompId : ${vsCompId}`);
-    // console.log(`email : ${email}`);
-    // console.log(`emailCheck : ${emailCheck}`);
-    // console.log(`photoIdCard : ${photoIdCard}`);
-    // console.log(`password : ${password}`);
-    // console.log(`passwordConfirm : ${passwordConfirm}`);
-    // console.log(`fnm : ${fnm}`);
-    // console.log(`lnm : ${lnm}`);
-    // console.log(`birth : ${birth}`);
-    // console.log(`sex : ${sex}`);
-    // console.log(`birthPlace : ${birthPlace}`);
-    // console.log(`addrDetail : ${addrDetail}`);
-    // console.log(`addrCity : ${addrCity}`);
-    // console.log(`addrStreet : ${addrStreet}`);
-    // console.log(`phoneNo : ${phoneNo}`);
-    // console.log(`meterId : ${meterId}`);
-    // console.log(`reason : ${reason}`);
 
     const params = {
       user: {
@@ -225,9 +216,9 @@ class UserRegisterForm extends React.Component<Props, State> {
         companyId: vsCompId === '' ? esCompId : vsCompId,
         gender: sex,
         id: {
-          idFilePath: 'aaaa',
-          idSerialNo: 'aaa',
-          idTypeCode: 'aaa',
+          idFilePath,
+          idSerialNo,
+          idTypeCode,
         },
         meterId,
         name: {
@@ -240,6 +231,7 @@ class UserRegisterForm extends React.Component<Props, State> {
         userId: email,
       },
     };
+    console.log(params);
 
     const returnData = await UserApi.createUser(params);
     console.log(returnData);
@@ -247,9 +239,7 @@ class UserRegisterForm extends React.Component<Props, State> {
 
   render() {
     const {
-      branch, esCompanyList, vsCompanyList, compId, email, photoIdCard,
-      password, passwordConfirm, fnm, lnm, birth,
-      sex, birthPlace, addrDetail, addrCity, addrStreet, phoneNo, meterId, reason,
+      branch, esCompanyList, vsCompanyList, sex,
     } = this.state;
 
     return (
@@ -306,7 +296,11 @@ class UserRegisterForm extends React.Component<Props, State> {
                 <Table.Row>
                   <Table.Cell width={2}>Photo ID card</Table.Cell>
                   <Table.Cell width={8} colSpan={3}>
-                    <UserPhotoIdCard handlePhotoIdCard={this.handlePhotoIdCard} />
+                    <UserPhotoIdCard
+                      handleIdFilePath={this.handleIdFilePath}
+                      handleIdSerialNo={this.handleIdSerialNo}
+                      handleIdTypeCode={this.handleIdTypeCode}
+                    />
                   </Table.Cell>
                 </Table.Row>
 
