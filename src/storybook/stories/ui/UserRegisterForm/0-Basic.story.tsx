@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 
 import docs from './docs';
-import UserRegisterForm from '~/lib/ui/users/UserRegisterForm';
+import { UserRegisterForm } from '~/lib';
 
 export const Basic = (props: any) => {
   class Story extends Component {

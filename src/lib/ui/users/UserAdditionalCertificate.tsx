@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Image, Modal, Select, Table,
+  Button, Icon, Modal, Select,
 } from 'semantic-ui-react';
 import autobind from '~/lib/ui/module/autobindDecorator';
 import UserApi from '~/lib/service/users/api/UserApi';
@@ -15,6 +15,9 @@ interface State {
   file: string,
   previewUrl: any,
   open:boolean,
+  typeBox:boolean,
+  uploadCheck: string,
+  fileName: string,
 }
 
 @autobind
@@ -30,10 +33,13 @@ class UserAdditionalCertificate extends React.Component<Props, State> {
   constructor(props:Props) {
     super(props);
     this.state = {
-      type: 'Id Card type',
+      type: '',
       file: '',
       previewUrl: '',
       open: false,
+      typeBox: false,
+      uploadCheck: 'display',
+      fileName: '',
     };
   }
 
@@ -44,12 +50,13 @@ class UserAdditionalCertificate extends React.Component<Props, State> {
     this.props.handleCertTypeCode(data.value);
   }
 
-  uploadCertificate = async () => {
-    // await UserApi.uploadFile();
-  }
-
   showModal = () => {
+    if (this.state.type === '') {
+      window.alert('select certificate type first');
+      return false;
+    }
     this.setState({ open: true });
+    return true;
   }
 
   closeModal = () => {
@@ -57,7 +64,22 @@ class UserAdditionalCertificate extends React.Component<Props, State> {
       file: '',
       previewUrl: '',
       open: false,
+      fileName: '',
     });
+  }
+
+  handleFileOnChange = (event:any) => {
+    event.preventDefault();
+    const reader = new FileReader();
+    const file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        file,
+        fileName: file.name,
+        previewUrl: reader.result,
+      });
+    };
+    reader.readAsDataURL(file);
   }
 
   approveFile = async () => {
@@ -69,29 +91,34 @@ class UserAdditionalCertificate extends React.Component<Props, State> {
     const formData = new FormData();
     formData.append('id_file_path', this.state.file);
     const filePath = await UserApi.uploadFile(formData);
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      typeBox: true,
+      uploadCheck: 'none',
+    });
     window.alert('파일 업로드 완료');
 
     this.props.handleCertFilePath(filePath);
     return true;
   }
 
-  handleFileOnChange = (event:any) => {
-    event.preventDefault();
-    const reader = new FileReader();
-    const file = event.target.files[0];
-    reader.onloadend = () => {
-      this.setState({
-        file,
-        previewUrl: reader.result,
-      });
-    };
-    reader.readAsDataURL(file);
+  deleteFile = () => {
+    // const result = window.confirm('ID image must be attached. ' +
+    //                                'Are you sure you want to delete and then re-register?');
+    // if (result) {
+    this.setState({
+      file: '',
+      previewUrl: '',
+      typeBox: false,
+      uploadCheck: 'unset',
+      fileName: '',
+    });
+    // }
   }
 
   render() {
     const {
-      type, previewUrl, open,
+      previewUrl, open, typeBox, uploadCheck, fileName,
     } = this.state;
 
     let profilePreview = null;
@@ -101,9 +128,32 @@ class UserAdditionalCertificate extends React.Component<Props, State> {
 
     return (
       <>
-        <Select placeholder="Select Certificate" options={ this.addCert } onChange={this.changeType} />
+        <Select placeholder="Select Certificate" options={ this.addCert } onChange={this.changeType} disabled={typeBox} />
 
-        <Modal trigger={<Button onClick={this.showModal}>Show Modal</Button>} size="mini" onClose={this.closeModal} open={open}>
+        {
+          fileName
+            ? (
+              <span>
+                <a href={previewUrl} download={fileName}>{fileName}</a>
+                <Icon name="close" onClick={this.deleteFile} />
+              </span>
+            )
+            : ''
+        }
+
+        <Modal
+          trigger={(
+            <Button
+              onClick={this.showModal}
+              style={{ display: uploadCheck }}
+            >
+              Upload
+            </Button>
+          )}
+          size="mini"
+          onClose={this.closeModal}
+          open={open}
+        >
           <Modal.Header style={{ textAlign: 'center' }}>Upload</Modal.Header>
           <Modal.Content>
             <Modal.Description>

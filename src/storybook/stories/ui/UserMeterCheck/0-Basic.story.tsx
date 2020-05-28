@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import docs from './docs';
-import UserMeterCheck from '~/lib/ui/users/UserMeterCheck';
+import { UserMeterCheck } from '~/lib';
 
 export const Basic = (props: any) => {
   class Story extends Component {
