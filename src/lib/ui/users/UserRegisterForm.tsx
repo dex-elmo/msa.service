@@ -25,6 +25,8 @@ interface State {
   idFilePath: string;
   idSerialNo: string;
   idTypeCode: string;
+  certFilePath: string;
+  certTypeCode: string;
   password: string;
   passwordConfirm: string;
   fnm: string;
@@ -56,6 +58,8 @@ class UserRegisterForm extends React.Component<Props, State> {
       idFilePath: '',
       idSerialNo: '',
       idTypeCode: '',
+      certFilePath: '',
+      certTypeCode: '',
       password: '',
       passwordConfirm: '',
       fnm: '',
@@ -139,6 +143,14 @@ class UserRegisterForm extends React.Component<Props, State> {
     this.setState({ idTypeCode: input });
   }
 
+  handleCertFilePath = (input: string) => {
+    this.setState({ certFilePath: input });
+  }
+
+  handleCertTypeCode = (input: string) => {
+    this.setState({ certTypeCode: input });
+  }
+
   handlePassword = (e:React.FormEvent<HTMLInputElement>) => {
     this.setState({ password: e.currentTarget.value });
   }
@@ -194,7 +206,7 @@ class UserRegisterForm extends React.Component<Props, State> {
   handleFormSubmit = async () => {
     const {
       branch, compId, esCompId, vsCompId, email, emailCheck, idFilePath, idSerialNo, idTypeCode,
-      password, passwordConfirm, fnm, lnm, birth, sex, birthPlace,
+      certFilePath, certTypeCode, password, passwordConfirm, fnm, lnm, birth, sex, birthPlace,
       addrDetail, addrCity, addrStreet, phoneNo, meterId, reason,
     } = this.state;
 
@@ -210,8 +222,8 @@ class UserRegisterForm extends React.Component<Props, State> {
           birthday: birth,
         },
         cert: {
-          certFilePath: 'aaaaa',
-          certTypeCode: '123',
+          certFilePath,
+          certTypeCode,
         },
         companyId: vsCompId === '' ? esCompId : vsCompId,
         gender: sex,
@@ -233,8 +245,8 @@ class UserRegisterForm extends React.Component<Props, State> {
     };
     console.log(params);
 
-    const returnData = await UserApi.createUser(params);
-    console.log(returnData);
+    // const returnData = await UserApi.createUser(params);
+    // console.log(returnData);
   }
 
   render() {
@@ -307,7 +319,10 @@ class UserRegisterForm extends React.Component<Props, State> {
                 <Table.Row>
                   <Table.Cell width={2}>Additional Certificate</Table.Cell>
                   <Table.Cell width={8} colSpan={3}>
-                    <UserAdditionalCertificate />
+                    <UserAdditionalCertificate
+                      handleCertFilePath={this.handleCertFilePath}
+                      handleCertTypeCode={this.handleCertTypeCode}
+                    />
                   </Table.Cell>
                 </Table.Row>
 

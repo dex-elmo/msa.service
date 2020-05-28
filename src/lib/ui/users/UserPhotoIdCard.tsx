@@ -14,7 +14,6 @@ interface Props {
 
 interface State {
   type:string;
-  image:boolean;
   file: string,
   previewUrl: any,
   open:boolean,
@@ -35,7 +34,6 @@ class UserPhotoIdCard extends React.Component<Props, State> {
     super(props);
     this.state = {
       type: 'Id Card type',
-      image: false,
       file: '',
       previewUrl: '',
       open: false,
@@ -92,7 +90,7 @@ class UserPhotoIdCard extends React.Component<Props, State> {
 
   render() {
     const {
-      type, image, file, previewUrl, open,
+      type, previewUrl, open,
     } = this.state;
 
     let profilePreview = null;
@@ -108,15 +106,6 @@ class UserPhotoIdCard extends React.Component<Props, State> {
           <Modal.Header style={{ textAlign: 'center' }}>Upload</Modal.Header>
           <Modal.Content>
             <Modal.Description>
-              {
-                image
-                  ? (
-                    <div style={{ height: '150px' }}>
-                      <Image wrapped size="medium" src="/img/logo.png" />
-                    </div>
-                  )
-                  : ''
-              }
               {
                 profilePreview
               }
