@@ -5,91 +5,87 @@
  * - author: Sungyub NA <mailto: syna@nuritelecom.com>
  */
 import * as React from 'react';
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
-import { DateRangePicker } from 'react-dates';
+import {
+  AnchorDirectionShape,
+  DateRangePicker,
+  DateRangePickerShape,
+  OrientationShape,
+  FocusedInputShape,
+} from 'react-dates';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
-class DateRangePickerWrapper extends Component<any, any> {
-  BLOCKED_DATES = [
-    // moment().add(10, 'days'),
-    // moment().add(11, 'days'),
-    // moment().add(12, 'days'),
-  ];
+interface Props {
+  startDate: moment.Moment
+  endDate: moment.Moment
+  onClose?: (
+    final: {
+      startDate: moment.Moment;
+      endDate: moment.Moment;
+    },
+  ) => void
+}
 
-  constructor(props: any) {
-    super(props);
+interface State extends DateRangePickerShape {
+  startDate: moment.Moment
+  endDate: moment.Moment
+  focusedInput: FocusedInputShape | null
+  direction: AnchorDirectionShape
+  dateFormat: string
+  small: boolean
+  block: boolean
+  orientation: OrientationShape
+  numMonths: number
+  minimumNights: number
+}
 
-    this.state = {
-      // focusedInput: null,
-      startDate: moment().subtract(30, 'days'),
-      endDate: moment(),
-      fullscreen: false,
-      direction: 'left',
-      dateFormat: 'MM/DD/YYYY',
-      small: true,
-      block: false,
-      orientation: 'horizontal',
-      numMonths: 2,
-      minimumNights: 7,
+const DateRangePickerWrapper: React.FC<Props> = (props) => {
+  const [focusedInput, setFocusedInput] = useState<FocusedInputShape | null>(
+    null,
+  );
+  const [startDate, setStartDate] = useState<moment.Moment | null>(
+    // moment().subtract(30, 'days'),
+    props.startDate,
+  );
+  const [endDate, setEndDate] = useState<moment.Moment | null>(
+    props.endDate,
+  );
+  const [dateFormat, setDateFormat] = useState<string>('MM/DD/YYYY');
+
+  const handleDatesChange: (
+    arg: {
+      startDate: moment.Moment | null;
+      endDate: moment.Moment | null;
+    },
+  ) => void = ({ startDate: s, endDate: e }:
+    { startDate: moment.Moment | null, endDate: moment.Moment | null }) => {
+    setStartDate(s);
+    setEndDate(e);
+  };
+
+  const handleFocusChange:
+    (arg: FocusedInputShape | null) => void = (f: FocusedInputShape | null) => {
+      setFocusedInput(f);
     };
 
-    this.handleDatesChange = this.handleDatesChange.bind(this);
-    this.handleFocusChange = this.handleFocusChange.bind(this);
-    this.handleChangeFullscreen = this.handleChangeFullscreen.bind(this);
-    this.handleChangeDirection = this.handleChangeDirection.bind(this);
-    this.handleChangeDateFormat = this.handleChangeDateFormat.bind(this);
-  }
-
-  // @ts-ignore
-  handleDatesChange({ startDate, endDate }) {
-    this.setState({ startDate, endDate });
-  }
-
-  // @ts-ignore
-  handleFocusChange(focusedInput) {
-    this.setState({ focusedInput });
-  }
-
-  // @ts-ignore
-  handleChangeFullscreen() {
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    this.setState({ fullscreen: !this.state.fullscreen });
-  }
-
-  // @ts-ignore
-  handleChangeDirection(e) {
-    this.setState({ direction: e.target.value });
-  }
-
-  // @ts-ignore
-  handleChangeDateFormat(e) {
-    this.setState({ dateFormat: e.target.value });
-  }
-
-  render() {
-    return (
-      <DateRangePicker
-        startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-        startDateId="unique_start_date_id" // PropTypes.string.isRequired,
-        endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-        endDateId="unique_end_date_id" // PropTypes.string.isRequired,
-        onDatesChange={this.handleDatesChange} // PropTypes.func.isRequired,
-        focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-        onFocusChange={this.handleFocusChange} // PropTypes.func.isRequired,
-        displayFormat={this.state.dateFormat}
-        numberOfMonths={this.state.numMonths || 2}
-        block={this.state.block}
-        small={this.state.small}
-        withFullScreenPortal={this.state.fullscreen}
-        anchorDirection={this.state.direction}
-        orientation={this.state.orientation}
-        minimumNights={this.state.minimumNights}
-        {...this.props}
-      />
-    );
-  }
-}
+  return (
+    <DateRangePicker
+      startDate={ startDate }
+      startDateId="unique_start_date_id"
+      endDate={ endDate }
+      endDateId="unique_end_date_id"
+      onDatesChange={ handleDatesChange }
+      focusedInput={ focusedInput }
+      onFocusChange={ handleFocusChange }
+      displayFormat={ dateFormat }
+      numberOfMonths={ 2 }
+      isOutsideRange={ () => false }
+      small
+      onClose={ props.onClose }
+    />
+  );
+};
 
 export default DateRangePickerWrapper;

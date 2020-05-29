@@ -6,15 +6,32 @@
  */
 import React, { Component } from 'react';
 import moment from 'moment';
-import DateRangePickerWrapper from '~/lib/ui/Common/DateRangePicker/DateRangePickerWrapper';
+import DateRangePickerWrapper
+  from '~/lib/ui/Common/DateRangePicker/DateRangePickerWrapper';
 import docs from './docs';
 
 export const Basic = (props: any) => {
   class Story extends Component {
+    onClose: (
+      final: {
+        startDate: moment.Moment;
+        endDate: moment.Moment;
+      },
+    ) => void = (final) => {
+      console.log(final);
+    };
+
     render() {
+      const startDate = moment().subtract(2, 'days');
+      const endDate = moment();
+
       return (
         <div>
-          <DateRangePickerWrapper />
+          <DateRangePickerWrapper
+            startDate={ startDate }
+            endDate={ endDate }
+            onClose={ this.onClose }
+          />
         </div>
       );
     }
