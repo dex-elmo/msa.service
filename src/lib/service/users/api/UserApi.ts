@@ -49,9 +49,10 @@ class UserApi {
   }
 
   uploadFile = async (file:any) => {
-    console.log(file);
     const data = await axios.post('/api/v2/station/customer/approve', file);
-    return data;
+    console.log(data);
+    const filePath = data.data.object;
+    return filePath;
   }
 
   getEstationList = async () => {

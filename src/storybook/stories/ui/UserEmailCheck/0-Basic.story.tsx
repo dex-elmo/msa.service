@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import docs from './docs';
-import UserEmailCheck from '~/lib/ui/users/UserEmailCheck';
+import { UserEmailCheck } from '~/lib';
 
 export const Basic = (props: any) => {
   class Story extends Component {
