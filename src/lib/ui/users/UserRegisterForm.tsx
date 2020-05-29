@@ -11,6 +11,8 @@ import SharedBirthOfDate from '~/lib/ui/shared/SharedBirthOfDate';
 import UserApi from '~/lib/service/users/api/UserApi';
 
 interface Props {
+  handleCreateUser:any;
+  closeWindow:any;
 }
 
 interface State {
@@ -245,8 +247,17 @@ class UserRegisterForm extends React.Component<Props, State> {
     };
     console.log(params);
 
-    // const returnData = await UserApi.createUser(params);
-    // console.log(returnData);
+    const returnData = await UserApi.createUser(params);
+    console.log(returnData);
+
+    if (returnData.data.status) {
+      console.log('save success');
+      this.props.handleCreateUser(true);
+      this.props.closeWindow();
+    } else {
+      console.log('fail fail');
+      this.props.handleCreateUser(false);
+    }
   }
 
   render() {

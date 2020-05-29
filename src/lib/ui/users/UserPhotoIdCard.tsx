@@ -25,12 +25,12 @@ interface State {
 @autobind
 class UserPhotoIdCard extends React.Component<Props, State> {
   idCard = [
-    { key: '1', value: 'Voter ID Card', text: 'Voter ID Card' },
-    { key: '2', value: 'National ID Card', text: 'National ID Card' },
-    { key: '3', value: 'Driver\' License', text: 'Driver\' License' },
-    { key: '4', value: 'NHIS ID', text: 'NHIS ID' },
-    { key: '5', value: 'SSNIT ID', text: 'SSNIT ID' },
-    { key: '6', value: 'Passport', text: 'Passport' },
+    { key: '1', value: '1', text: 'Voter ID Card' },
+    { key: '2', value: '2', text: 'National ID Card' },
+    { key: '3', value: '3', text: 'Driver\' License' },
+    { key: '4', value: '4', text: 'NHIS ID' },
+    { key: '5', value: '5', text: 'SSNIT ID' },
+    { key: '6', value: '6', text: 'Passport' },
   ];
 
   constructor(props:Props) {
@@ -48,8 +48,23 @@ class UserPhotoIdCard extends React.Component<Props, State> {
   }
 
   changeType = (e:any, data:any) => { /* 이런 파마미터 타입 지정 어떻게 아는지 */
+    let type = '';
+    if (data.value === '1') {
+      type = 'Voter ID Card';
+    } else if (data.value === '2') {
+      type = 'National ID Card';
+    } else if (data.value === '3') {
+      type = 'Driver\' License';
+    } else if (data.value === '4') {
+      type = 'NHIS ID';
+    } else if (data.value === '5') {
+      type = 'SSNIT ID';
+    } else if (data.value === '6') {
+      type = 'Passport';
+    }
+
     this.setState({
-      type: data.value,
+      type,
       typeCheck: true,
     });
     this.props.handleIdTypeCode(data.value);
