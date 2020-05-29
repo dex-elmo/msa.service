@@ -18,6 +18,7 @@ import {
 import { SemanticWIDTHS } from 'semantic-ui-react/dist/commonjs/generic';
 import moment from 'moment';
 import UserApi from '~/lib/service/users/api/UserApi';
+import { DateRangePicker } from '~/lib/ui/Common/DateRangePicker';
 
 type UserType =
   'CES' | // E/Station
@@ -70,8 +71,8 @@ interface State {
   branchName?: UserType,
   isBranchSelect: boolean,
   branchList: DropdownProps[],
-  startDate?: string,
-  endDate?: string,
+  startDate?: moment.Moment | string,
+  endDate?: moment.Moment | string,
 }
 
 interface Props {
@@ -148,7 +149,7 @@ class UserSearch extends Component<Props, State> {
     });
   };
 
-  handleSelectdBranch = async (e: SyntheticEvent, target: any) => {
+  handleSelectedBranch = async (e: SyntheticEvent, target: any) => {
     const { branchList } = this.state;
     const { apiUrl } = this.props;
     const { value } = target;
@@ -174,10 +175,17 @@ class UserSearch extends Component<Props, State> {
     });
   };
 
+  handleDateChange = (
+    final: { startDate: moment.Moment, endDate: moment.Moment },
+  ) => {
+    const { startDate, endDate } = final;
+    this.setState({ startDate, endDate });
+    console.log(final);
+  };
+
   handleSearchButton = (e: SyntheticEvent, target: any) => {
     console.log(this.state);
   };
-
 
   render() {
     const defaultDate = {
@@ -190,7 +198,7 @@ class UserSearch extends Component<Props, State> {
     return (
       <Grid>
         <Grid.Column width={ config.style.grid.columnWidth }>
-          <Table size="small" basic compact="very">
+          <Table size="small" compact="very">
             <Table.Body>
               <Table.Row textAlign="left">
                 <Table.Cell active>Category</Table.Cell>
@@ -224,7 +232,7 @@ class UserSearch extends Component<Props, State> {
                   <Select
                     options={ this.selectOptions.registered }
                     placeholder={ config.text.estation }
-                    onChange={ this.handleSelectdBranch }
+                    onChange={ this.handleSelectedBranch }
                   />
                   { ' ' }
                   <Select
@@ -236,15 +244,10 @@ class UserSearch extends Component<Props, State> {
                 </Table.Cell>
                 <Table.Cell active>Registered Date</Table.Cell>
                 <Table.Cell>
-                  <Input
-                    style={ config.style }
-                    name="start date"
-                    value={ defaultDate.startDate.format('DD/MM/YY') }
-                  /> to
-                  <Input
-                    style={ config.style }
-                    name="end date"
-                    value={ defaultDate.endDate.format('DD/MM/YY') }
+                  <DateRangePicker
+                    startDate={ defaultDate.startDate }
+                    endDate={ defaultDate.endDate }
+                    onClose={ this.handleDateChange }
                   />
                 </Table.Cell>
               </Table.Row>
@@ -252,7 +255,11 @@ class UserSearch extends Component<Props, State> {
           </Table>
         </Grid.Column>
         <Grid.Column verticalAlign="bottom">
-          <Button { ...props } onClick={ () => props.handleButton(state) }> Search </Button>
+          <Button
+            { ...props }
+            onClick={ () => props.handleButton(state) }
+          > Search
+          </Button>
         </Grid.Column>
       </Grid>
     );
