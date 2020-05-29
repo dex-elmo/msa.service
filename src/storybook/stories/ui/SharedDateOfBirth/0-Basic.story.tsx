@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import docs from './docs';
-import SharedBirthOfDate from '~/lib/ui/shared/SharedBirthOfDate';
+import { SharedBirthOfDate } from '~/lib';
 
 export const Basic = (props: any) => {
   class Story extends Component {
