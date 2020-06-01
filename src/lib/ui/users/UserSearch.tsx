@@ -76,8 +76,9 @@ interface State {
 }
 
 interface Props {
-  apiUrl: string,
-  handleButton: any,
+  startDate: moment.Moment | null,
+  endDate: moment.Moment | null,
+  handleButton: (state: State) => void,
 }
 
 const config: ConfigType = {
@@ -151,13 +152,9 @@ class UserSearch extends Component<Props, State> {
 
   handleSelectedBranch = async (e: SyntheticEvent, target: any) => {
     const { branchList } = this.state;
-    const { apiUrl } = this.props;
     const { value } = target;
     const resp = await UserApi.getCompanyList(
-      apiUrl,
-      {
-        userType: value,
-      },
+      { userType: value },
     );
     if (!resp.error) {
       const { results } = resp;
@@ -180,11 +177,6 @@ class UserSearch extends Component<Props, State> {
   ) => {
     const { startDate, endDate } = final;
     this.setState({ startDate, endDate });
-    console.log(final);
-  };
-
-  handleSearchButton = (e: SyntheticEvent, target: any) => {
-    console.log(this.state);
   };
 
   render() {
@@ -194,6 +186,11 @@ class UserSearch extends Component<Props, State> {
     };
     const { ...state } = this.state;
     const { ...props } = this.props;
+
+    if (props.startDate && props.endDate) {
+      defaultDate.startDate = props.startDate;
+      defaultDate.endDate = props.endDate;
+    }
 
     return (
       <Grid>
@@ -257,7 +254,7 @@ class UserSearch extends Component<Props, State> {
         <Grid.Column verticalAlign="bottom">
           <Button
             { ...props }
-            onClick={ () => props.handleButton(state) }
+            onClick={ () => props.handleButton(this.state) }
           > Search
           </Button>
         </Grid.Column>
