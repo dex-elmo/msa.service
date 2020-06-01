@@ -91,7 +91,7 @@
     "build:types": "npx rimraf types && tsc -p tsconfig.types.json"
   },
   "publishConfig": {
-    "registry": "http://140.238.6.30:8081/repository/npm-private/"
+    "registry": "http://172.16.55.140:8081/repository/npm-private/"
   },
   "eslintConfig": {
     "extends": [

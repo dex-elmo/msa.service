@@ -2,6 +2,8 @@ import axios from 'axios';
 
 const USER_URL = {
   GET_COMPANY_LIST: '/api/v2/user/companies',
+  CREATE_USER: '/api/v2/user/signup',
+  UPLOAD_FILE: '/api/v2/station/customer/approve',
 };
 
 class UserApi {
@@ -46,7 +48,7 @@ class UserApi {
   };
 
   uploadFile = async (file: any) => {
-    const data = await axios.post('/api/v2/station/customer/approve', file);
+    const data = await axios.post(USER_URL.UPLOAD_FILE, file);
     console.log(data);
     const filePath = data.data.object;
     return filePath;
@@ -74,9 +76,14 @@ class UserApi {
   };
 
   createUser = async (params: any) => {
-    const data = await axios.post('/api/v2/user/signup', params.user);
+    const data = await axios.post(USER_URL.CREATE_USER, params.user);
     return data;
   };
+
+  getUserInfo = async (userId: string) => {
+    const data = await axios.get(`/api/v2/user/${userId}/detail`);
+    return data;
+  }
 }
 
 export default new UserApi();
