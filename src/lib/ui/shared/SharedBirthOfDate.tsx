@@ -28,6 +28,7 @@ class SharedBirthOfDate extends React.Component<Props, State> {
     const day = moment().date();
 
     const month1 = month < 10 ? `0${month.toString()}` : month.toString();
+    const day1 = day < 10 ? `0${day.toString()}` : day.toString();
 
     this.state = {
       yearList: [],
@@ -35,7 +36,7 @@ class SharedBirthOfDate extends React.Component<Props, State> {
       dayList: [],
       year: year.toString(),
       month: month1,
-      day: day.toString(),
+      day: day1.toString(),
       birth: `${year}${month1}${day}`,
     };
   }

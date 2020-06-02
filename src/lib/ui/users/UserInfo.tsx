@@ -251,10 +251,21 @@ class UserInfo extends React.Component<Props, State> {
                 <Table.Row>
                   <Table.Cell width={2}>Additional Certificate</Table.Cell>
                   <Table.Cell width={8} colSpan={3}>
-                    <UserAdditionalCertificate
-                      handleCertFilePath={this.handleCertFilePath}
-                      handleCertTypeCode={this.handleCertTypeCode}
-                    />
+                    {userModel.certFilePath !== ''
+                      ? (
+                        <UserAdditionalCertificate
+                          handleCertFilePath={this.handleCertFilePath}
+                          handleCertTypeCode={this.handleCertTypeCode}
+                          defaultCertFilePath={userModel.certFilePath}
+                          defaultCertTypeCode={userModel.certTypeCode}
+                        />
+                      )
+                      : (
+                        <UserAdditionalCertificate
+                          handleCertFilePath={this.handleCertFilePath}
+                          handleCertTypeCode={this.handleCertTypeCode}
+                        />
+                      )}
                   </Table.Cell>
                 </Table.Row>
 
