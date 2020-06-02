@@ -116,7 +116,8 @@
       "import/prefer-default-export": 0,
       "react/destructuring-assignment": 0,
       "react/state-in-constructor": 0,
-      "spaced-comment": 0
+      "spaced-comment": 0,
+      "react/no-did-update-set-state": 0
     }
   },
   "browserslist": {

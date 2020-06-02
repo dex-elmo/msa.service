@@ -283,9 +283,18 @@ class UserInfo extends React.Component<Props, State> {
                 <Table.Row>
                   <Table.Cell width={2}>Date of Birth</Table.Cell>
                   <Table.Cell width={3}>
-                    <SharedBirthOfDate
-                      handleBirth={this.handleBirth}
-                    />
+                    {userModel.birth !== ''
+                      ? (
+                        <SharedBirthOfDate
+                          handleBirth={this.handleBirth}
+                          defaultBirth={userModel.birth}
+                        />
+                      )
+                      : (
+                        <SharedBirthOfDate
+                          handleBirth={this.handleBirth}
+                        />
+                      )}
                   </Table.Cell>
                   <Table.Cell width={2}>Gender</Table.Cell>
                   <Table.Cell width={3}>
