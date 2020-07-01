@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Icon, Modal, Select,
+  Button, Icon, Modal, Select, Image,
 } from 'semantic-ui-react';
 import autobind from '~/lib/ui/module/autobindDecorator';
 import UserApi from '~/lib/service/users/api/UserApi';
@@ -8,16 +8,20 @@ import UserApi from '~/lib/service/users/api/UserApi';
 interface Props {
   handleCertFilePath:any,
   handleCertTypeCode:any,
+  defaultCertFilePath?:string,
+  defaultCertTypeCode?:string,
 }
 
 interface State {
-  type:string;
+  type:string | undefined;
   file: string,
   previewUrl: any,
   open:boolean,
   typeBox:boolean,
   uploadCheck: string,
-  fileName: string,
+  fileName: string | undefined,
+  imageOpen:boolean,
+  imageUrl:string,
 }
 
 @autobind
@@ -33,25 +37,38 @@ class UserAdditionalCertificate extends React.Component<Props, State> {
   constructor(props:Props) {
     super(props);
     this.state = {
-      type: '',
+      type: 'Select Certificate',
       file: '',
       previewUrl: '',
       open: false,
       typeBox: false,
       uploadCheck: 'display',
       fileName: '',
+      imageOpen: false,
+      imageUrl: '',
     };
   }
 
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) {
+    if (prevProps.defaultCertFilePath !== this.props.defaultCertFilePath) {
+      this.setState({
+        typeBox: true,
+        uploadCheck: 'none',
+        fileName: 'certificate Image',
+        imageUrl: `http://localhost:8080/api/v2/user/image?filePath=${this.props.defaultCertFilePath}`,
+      });
+      this.setTypeCode(this.props.defaultCertTypeCode);
+      this.props.handleCertTypeCode(this.props.defaultCertTypeCode);
+    }
+  }
+
   changeType = (e:any, data:any) => {
-    this.setState({
-      type: data.value,
-    });
+    this.setTypeCode(data.value);
     this.props.handleCertTypeCode(data.value);
   }
 
   showModal = () => {
-    if (this.state.type === '') {
+    if (this.state.type === 'Select Certificate') {
       window.alert('select certificate type first');
       return false;
     }
@@ -95,6 +112,7 @@ class UserAdditionalCertificate extends React.Component<Props, State> {
       open: false,
       typeBox: true,
       uploadCheck: 'none',
+      imageUrl: `http://localhost:8080/api/v2/user/image?filePath=${filePath}`,
     });
     window.alert('파일 업로드 완료');
 
@@ -103,9 +121,6 @@ class UserAdditionalCertificate extends React.Component<Props, State> {
   }
 
   deleteFile = () => {
-    // const result = window.confirm('ID image must be attached. ' +
-    //                                'Are you sure you want to delete and then re-register?');
-    // if (result) {
     this.setState({
       file: '',
       previewUrl: '',
@@ -116,9 +131,36 @@ class UserAdditionalCertificate extends React.Component<Props, State> {
     // }
   }
 
+  setTypeCode = (typeCode:string | undefined) => {
+    let type;
+    switch (typeCode) {
+      case '1': type = 'Registered Tenancy Agreement'; break;
+      case '2': type = 'Utility Bill'; break;
+      case '3': type = 'Income Tax Certificate'; break;
+      case '4': type = 'Bank Statements'; break;
+      case '5': type = 'Reference Letter'; break;
+      default: break;
+    }
+    this.setState({
+      type,
+    });
+  }
+
+  handleImageModal = () => {
+    this.setState({
+      imageOpen: true,
+    });
+  }
+
+  closeImageModal = () => {
+    this.setState({
+      imageOpen: false,
+    });
+  }
+
   render() {
     const {
-      previewUrl, open, typeBox, uploadCheck, fileName,
+      previewUrl, open, typeBox, uploadCheck, fileName, imageOpen, imageUrl,
     } = this.state;
 
     let profilePreview = null;
@@ -128,13 +170,24 @@ class UserAdditionalCertificate extends React.Component<Props, State> {
 
     return (
       <>
-        <Select placeholder="Select Certificate" options={ this.addCert } onChange={this.changeType} disabled={typeBox} />
+        <Select
+          placeholder="Select Certificate"
+          text={this.state.type}
+          options={ this.addCert }
+          onChange={this.changeType}
+          disabled={typeBox}
+        />
 
         {
           fileName
             ? (
               <span>
-                <a href={previewUrl} download={fileName}>{fileName}</a>
+                <a
+                  onClick={this.handleImageModal}
+                >
+                  {fileName}
+                </a>
+                {/*<a href={previewUrl} download={fileName}>{fileName}</a>*/}
                 <Icon name="close" onClick={this.deleteFile} />
               </span>
             )
@@ -174,6 +227,14 @@ class UserAdditionalCertificate extends React.Component<Props, State> {
               </div>
             </Modal.Description>
           </Modal.Content>
+        </Modal>
+
+        <Modal
+          open={imageOpen}
+          onClose={this.closeImageModal}
+          style={{ width: 'auto' }}
+        >
+          <Image src={imageUrl} />
         </Modal>
       </>
     );

@@ -2,28 +2,20 @@ import React from 'react';
 import {
   Button, Form, Grid, Input, Radio, Select, Table,
 } from 'semantic-ui-react';
+import moment from 'moment';
 import UserAdditionalCertificate from '~/lib/ui/users/UserAdditionalCertificate';
-import UserEmailCheck from '~/lib/ui/users/UserEmailCheck';
 import autobind from '~/lib/ui/module/autobindDecorator';
 import UserPhotoIdCard from '~/lib/ui/users/UserPhotoIdCard';
-import UserMeterCheck from '~/lib/ui/users/UserMeterCheck';
 import SharedBirthOfDate from '~/lib/ui/shared/SharedBirthOfDate';
 import UserApi from '~/lib/service/users/api/UserApi';
+import UserModel from '~/lib/model/common/UserModel';
 
 interface Props {
-  handleCreateUser:any;
+  handleModifyUser:any;
   closeWindow:any;
 }
 
 interface State {
-  esCompanyList: {key:string, value:string, text:string}[];
-  vsCompanyList: {key:string, value:string, text:string}[];
-  branch: string;
-  esCompId: string;
-  vsCompId: string;
-  compId: string;
-  email: string;
-  emailCheck: boolean;
   idFilePath: string;
   idSerialNo: string;
   idTypeCode: string;
@@ -39,24 +31,15 @@ interface State {
   addrDetail: string;
   addrStreet: string;
   addrCity: string;
-  phoneNo: string;
-  meterId: string;
   reason: string;
+  userModel: UserModel;
 }
 
 @autobind
-class UserRegisterForm extends React.Component<Props, State> {
+class UserInfo extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      esCompanyList: [],
-      vsCompanyList: [],
-      esCompId: '',
-      vsCompId: '',
-      branch: '',
-      compId: '',
-      email: '',
-      emailCheck: false,
       idFilePath: '',
       idSerialNo: '',
       idTypeCode: '',
@@ -72,65 +55,49 @@ class UserRegisterForm extends React.Component<Props, State> {
       addrDetail: '',
       addrStreet: '',
       addrCity: '',
-      phoneNo: '',
-      meterId: '',
       reason: '',
+      userModel: new UserModel(),
     };
   }
 
-  makeVsCompanyList = async (compId:string) => {
-    const returnData = await UserApi.getVstationList(compId, this.state.branch);
-
-    const list = returnData.data.object;
-    const arr = [];
-    for (let i = 0; i < list.length; i++) {
-      arr.push({ key: list[i].userId, value: list[i].userId, text: list[i].userId });
-    }
-    this.setState({ vsCompanyList: arr });
+  componentDidMount() {
+    this.getUserInfo();
   }
 
-  handleBranchRadio = async (e: any, value: any) => {
-    const branchType = value.value;
+  getUserInfo = async () => {
+    const { data } = await UserApi.getUserInfo('aaaaa');
+    // console.log(data.object.user);
+    // console.log(data.object.detail);
+
+    const { user } = data.object;
+    const { detail } = data.object;
+
+    const userModel = new UserModel();
+    userModel.email = user.userId;
+    userModel.kycCode = user.kycCode;
+    userModel.idFilePath = user.identification.idFilePath;
+    userModel.idTypeCode = user.identification.idTypeCode;
+    userModel.certFilePath = user.cert.certFilePath;
+    userModel.certTypeCode = user.cert.certTypeCode;
+    userModel.firstName = user.name.firstName;
+    userModel.lastName = user.name.lastName;
+    userModel.birth = user.birth.birthday;
+    userModel.birthPlace = user.birth.birthPlace;
+    userModel.sex = user.gender;
+    userModel.addrDetail = user.address.detailAddress;
+    userModel.addrStreet = user.address.streetAddress;
+    userModel.addrCity = user.address.city;
+    userModel.compId = user.companyId;
+    userModel.regDt = user.created;
+    userModel.modDt = user.updated;
+    userModel.status = user.status;
+
+    console.log(userModel);
+
     this.setState({
-      branch: branchType,
+      userModel,
+      sex: userModel.sex,
     });
-
-    const returnData = await UserApi.getEstationList();
-
-    const list = returnData.data.object;
-    const arr = [];
-    for (let i = 0; i < list.length; i++) {
-      arr.push({ key: list[i].userId, value: list[i].userId, text: list[i].userId });
-    }
-    this.setState({ esCompanyList: arr });
-
-    if (branchType === 'CVS') {
-      await this.makeVsCompanyList(this.state.esCompId);
-    }
-
-    if (branchType === 'CES') {
-      this.setState({ vsCompId: '' });
-    }
-  };
-
-  selectEStation = async (e:any, value:any) => {
-    const compId = value.value;
-    this.setState({ esCompId: compId });
-
-    await this.makeVsCompanyList(compId);
-  }
-
-  selectVStation = async (e:any, value:any) => {
-    const compId = value.value;
-    this.setState({ vsCompId: compId });
-  }
-
-  handleEmail = (input: string) => {
-    this.setState({ email: input });
-  };
-
-  handleEmailCheck = (emailCheck: boolean) => {
-    this.setState({ emailCheck });
   }
 
   handleIdFilePath = (input: string) => {
@@ -193,23 +160,14 @@ class UserRegisterForm extends React.Component<Props, State> {
     this.setState({ addrCity: e.currentTarget.value });
   }
 
-  handlePhoneNo = (e:React.FormEvent<HTMLInputElement>) => {
-    this.setState({ phoneNo: e.currentTarget.value });
-  }
-
-  handleMeterId = (input: string) => {
-    this.setState({ meterId: input });
-  };
-
   handleReason = (e:React.FormEvent<HTMLInputElement>) => {
     this.setState({ reason: e.currentTarget.value });
   }
 
   handleFormSubmit = async () => {
     const {
-      branch, compId, esCompId, vsCompId, email, emailCheck, idFilePath, idSerialNo, idTypeCode,
-      certFilePath, certTypeCode, password, passwordConfirm, fnm, lnm, birth, sex, birthPlace,
-      addrDetail, addrCity, addrStreet, phoneNo, meterId, reason,
+      idFilePath, idSerialNo, idTypeCode, certFilePath, certTypeCode, password, passwordConfirm,
+      fnm, lnm, birth, sex, birthPlace, addrDetail, addrCity, addrStreet, reason,
     } = this.state;
 
     const params = {
@@ -227,42 +185,38 @@ class UserRegisterForm extends React.Component<Props, State> {
           certFilePath,
           certTypeCode,
         },
-        companyId: vsCompId === '' ? esCompId : vsCompId,
         gender: sex,
         id: {
           idFilePath,
           idSerialNo,
           idTypeCode,
         },
-        meterId,
         name: {
           firstName: fnm,
           lastName: lnm,
         },
         password,
-        phoneNo,
         reason,
-        userId: email,
       },
     };
     console.log(params);
 
-    const returnData = await UserApi.createUser(params);
-    console.log(returnData);
-
-    if (returnData.data.status) {
-      console.log('save success');
-      this.props.handleCreateUser(true);
-      this.props.closeWindow();
-    } else {
-      console.log('fail fail');
-      this.props.handleCreateUser(false);
-    }
+    // const returnData = await UserApi.createUser(params);
+    // console.log(returnData);
+    //
+    // if (returnData.data.status) {
+    //   console.log('save success');
+    //   this.props.handleModifyUser(true);
+    //   this.props.closeWindow();
+    // } else {
+    //   console.log('fail fail');
+    //   this.props.handleModifyUser(false);
+    // }
   }
 
   render() {
     const {
-      branch, esCompanyList, vsCompanyList, sex,
+      sex, userModel,
     } = this.state;
 
     return (
@@ -275,45 +229,12 @@ class UserRegisterForm extends React.Component<Props, State> {
           <Form>
             <Table celled>
               <Table.Body>
-                <Table.Row>
-                  <Table.Cell width={2}>Registered Branch</Table.Cell>
-                  <Table.Cell width={8} colSpan={3}>
-                    <Radio
-                      label="E/S"
-                      name="stationGroup"
-                      value="CES"
-                      checked={branch === 'CES'}
-                      onChange={this.handleBranchRadio}
-                    />
-                    <Radio
-                      label="V/S"
-                      name="stationGroup"
-                      value="CVS"
-                      checked={branch === 'CVS'}
-                      onChange={this.handleBranchRadio}
-                    />
-                    <Select
-                      placeholder="-------- E-Station --------"
-                      options={esCompanyList}
-                      onChange={this.selectEStation}
-                    />
-                    <Select
-                      placeholder="-------- V-Station --------"
-                      options={vsCompanyList}
-                      onChange={this.selectVStation}
-                      disabled={branch !== 'CVS'}
-                    />
-                  </Table.Cell>
-                </Table.Row>
 
                 <Table.Row>
                   <Table.Cell width={2}>E-Mail ID</Table.Cell>
-                  <Table.Cell width={8} colSpan={3}>
-                    <UserEmailCheck
-                      handleEmail={this.handleEmail}
-                      handleEmailCheck={this.handleEmailCheck}
-                    />
-                  </Table.Cell>
+                  <Table.Cell width={3}>{userModel.email}</Table.Cell>
+                  <Table.Cell width={2}>KYC Level</Table.Cell>
+                  <Table.Cell width={3}>{userModel.kycCode}</Table.Cell>
                 </Table.Row>
 
                 <Table.Row>
@@ -330,10 +251,21 @@ class UserRegisterForm extends React.Component<Props, State> {
                 <Table.Row>
                   <Table.Cell width={2}>Additional Certificate</Table.Cell>
                   <Table.Cell width={8} colSpan={3}>
-                    <UserAdditionalCertificate
-                      handleCertFilePath={this.handleCertFilePath}
-                      handleCertTypeCode={this.handleCertTypeCode}
-                    />
+                    {userModel.certFilePath !== ''
+                      ? (
+                        <UserAdditionalCertificate
+                          handleCertFilePath={this.handleCertFilePath}
+                          handleCertTypeCode={this.handleCertTypeCode}
+                          defaultCertFilePath={userModel.certFilePath}
+                          defaultCertTypeCode={userModel.certTypeCode}
+                        />
+                      )
+                      : (
+                        <UserAdditionalCertificate
+                          handleCertFilePath={this.handleCertFilePath}
+                          handleCertTypeCode={this.handleCertTypeCode}
+                        />
+                      )}
                   </Table.Cell>
                 </Table.Row>
 
@@ -347,16 +279,33 @@ class UserRegisterForm extends React.Component<Props, State> {
                 <Table.Row>
                   <Table.Cell width={2}>Name</Table.Cell>
                   <Table.Cell width={8} colSpan={3}>
-                    First Name <Input onChange={this.handleFnm} />
-                    Last Name <Input onChange={this.handleLnm} />
+                    First Name
+                    <Input
+                      onChange={this.handleFnm}
+                      defaultValue={userModel.firstName}
+                    />
+                    Last Name
+                    <Input
+                      onChange={this.handleLnm}
+                      defaultValue={userModel.lastName}
+                    />
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell width={2}>Date of Birth</Table.Cell>
                   <Table.Cell width={3}>
-                    <SharedBirthOfDate
-                      handleBirth={this.handleBirth}
-                    />
+                    {userModel.birth !== ''
+                      ? (
+                        <SharedBirthOfDate
+                          handleBirth={this.handleBirth}
+                          defaultBirth={userModel.birth}
+                        />
+                      )
+                      : (
+                        <SharedBirthOfDate
+                          handleBirth={this.handleBirth}
+                        />
+                      )}
                   </Table.Cell>
                   <Table.Cell width={2}>Gender</Table.Cell>
                   <Table.Cell width={3}>
@@ -380,39 +329,69 @@ class UserRegisterForm extends React.Component<Props, State> {
                 <Table.Row>
                   <Table.Cell width={2}>Birthplace</Table.Cell>
                   <Table.Cell width={8} colSpan={3}>
-                    <Input onChange={this.handleBirthPlace} />
+                    <Input
+                      onChange={this.handleBirthPlace}
+                      defaultValue={userModel.birthPlace}
+                    />
                   </Table.Cell>
                 </Table.Row>
 
                 <Table.Row>
                   <Table.Cell width={2}>Address</Table.Cell>
                   <Table.Cell width={8} colSpan={3}>
-                    <Input placeholder="Details" onChange={this.handleAddrDtl} />
-                    <Input placeholder="Street" onChange={this.handleAddrSt} />
-                    <Input placeholder="City" onChange={this.handleAddrCity} />
+                    <Input
+                      onChange={this.handleAddrDtl}
+                      defaultValue={userModel.addrDetail}
+                    />
+                    <Input
+                      onChange={this.handleAddrSt}
+                      defaultValue={userModel.addrStreet}
+                    />
+                    <Input
+                      onChange={this.handleAddrCity}
+                      defaultValue={userModel.addrCity}
+                    />
                   </Table.Cell>
                 </Table.Row>
 
                 <Table.Row>
                   <Table.Cell width={2}>Mobile Number</Table.Cell>
-                  <Table.Cell width={8} colSpan={3}>
-                    <Input onChange={this.handlePhoneNo} />
-                  </Table.Cell>
+                  <Table.Cell width={8} colSpan={3} />
                 </Table.Row>
 
                 <Table.Row>
-                  <Table.Cell width={2}>Meter ID</Table.Cell>
-                  <Table.Cell width={8} colSpan={3}>
-                    <UserMeterCheck handleMeter={this.handleMeterId} />
-                  </Table.Cell>
+                  <Table.Cell width={2}>Wallet</Table.Cell>
+                  <Table.Cell width={3} />
+                  <Table.Cell width={2}>Total Elmo Balance</Table.Cell>
+                  <Table.Cell width={3} />
                 </Table.Row>
+
+                <Table.Row>
+                  <Table.Cell width={2}>Registered Branch</Table.Cell>
+                  <Table.Cell width={3}>{userModel.compId}</Table.Cell>
+                  <Table.Cell width={2}>Registered Date</Table.Cell>
+                  <Table.Cell width={3}>{userModel.regDt}</Table.Cell>
+                </Table.Row>
+
+                <Table.Row>
+                  <Table.Cell width={2}>Last Used Date</Table.Cell>
+                  <Table.Cell width={3}>{userModel.modDt}</Table.Cell>
+                  <Table.Cell width={2}>Meter</Table.Cell>
+                  <Table.Cell width={3} />
+                </Table.Row>
+
+                <Table.Row>
+                  <Table.Cell width={2}>Status</Table.Cell>
+                  <Table.Cell width={8} colSpan={3}>{userModel.status}</Table.Cell>
+                </Table.Row>
+
               </Table.Body>
             </Table>
 
             <Table celled>
               <Table.Body>
                 <Table.Row>
-                  <Table.Cell width={2}>Reason for Register</Table.Cell>
+                  <Table.Cell width={2}>Reason for Modify</Table.Cell>
                   <Table.Cell width={8} colSpan={3}>
                     <Input onChange={this.handleReason} />
                   </Table.Cell>
@@ -428,4 +407,4 @@ class UserRegisterForm extends React.Component<Props, State> {
   }
 }
 
-export default UserRegisterForm;
+export default UserInfo;
