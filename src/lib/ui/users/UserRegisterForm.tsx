@@ -193,7 +193,7 @@ class UserRegisterForm extends React.Component<Props, State> {
     this.setState({ addrCity: e.currentTarget.value });
   }
 
-  handlephoneNo = (e:React.FormEvent<HTMLInputElement>) => {
+  handlePhoneNo = (e:React.FormEvent<HTMLInputElement>) => {
     this.setState({ phoneNo: e.currentTarget.value });
   }
 
@@ -396,7 +396,7 @@ class UserRegisterForm extends React.Component<Props, State> {
                 <Table.Row>
                   <Table.Cell width={2}>Mobile Number</Table.Cell>
                   <Table.Cell width={8} colSpan={3}>
-                    <Input onChange={this.handlephoneNo} />
+                    <Input onChange={this.handlePhoneNo} />
                   </Table.Cell>
                 </Table.Row>
 
