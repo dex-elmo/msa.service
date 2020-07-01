@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@nuri/component": "^0.1.17",
+    "@types/qrcode.react": "^1.0.1",
     "ag-grid-community": "^23.1.0",
     "ag-grid-enterprise": "^23.1.0",
     "ag-grid-react": "^23.1.0",
@@ -26,6 +27,7 @@
     "lodash": "^4.17.15",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.0",
+    "qrcode.react": "^1.0.0",
     "react-dates": "^21.8.0",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
@@ -91,7 +93,7 @@
     "build:types": "npx rimraf types && tsc -p tsconfig.types.json"
   },
   "publishConfig": {
-    "registry": "http://140.238.6.30:8081/repository/npm-private/"
+    "registry": "http://172.16.55.140:8081/repository/npm-private/"
   },
   "eslintConfig": {
     "extends": [
@@ -116,7 +118,8 @@
       "import/prefer-default-export": 0,
       "react/destructuring-assignment": 0,
       "react/state-in-constructor": 0,
-      "spaced-comment": 0
+      "spaced-comment": 0,
+      "react/no-did-update-set-state": 0
     }
   },
   "browserslist": {
