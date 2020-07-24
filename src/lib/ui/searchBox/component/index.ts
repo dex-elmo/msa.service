@@ -1,2 +1,3 @@
-export { default as EmailInput } from './EmailInput';
+export { default as Email } from './Email';
 export { default as Status } from './Status';
+export { default as RegisteredDate } from './RegisteredDate';

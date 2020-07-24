@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { SearchBox, SearchConfig } from '~/lib';
 import docs from './docs';
 
-/**
- * asd
- */
 export const Basic = (props: any) => {
   class Story extends Component {
     onSubmit = (data:object) => {
@@ -12,7 +9,7 @@ export const Basic = (props: any) => {
     }
 
     render() {
-      const a = [SearchConfig.EMAIL_INPUT, '', SearchConfig.STATUS, SearchConfig.EMAIL_INPUT];
+      const a = [SearchConfig.EMAIL_INPUT, '', SearchConfig.STATUS, SearchConfig.REGISTERED_DATE];
 
       return (
         <div>

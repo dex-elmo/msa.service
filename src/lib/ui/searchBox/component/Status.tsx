@@ -8,10 +8,6 @@ interface Props {
 }
 
 class Status extends React.Component<Props> {
-  handleInput = (e:any) => {
-    SearchStore.searchParams[this.props.propName] = e.currentTarget.value;
-  }
-
   handleStatus = (e: SyntheticEvent, target: any) => {
     const { value: status } = target;
     SearchStore.searchParams[this.props.propName] = status;

@@ -6,7 +6,7 @@ interface Props {
   propName: string,
 }
 
-class EmailInput extends React.Component<Props> {
+class Email extends React.Component<Props> {
   handleInput = (e:any) => {
     SearchStore.searchParams[this.props.propName] = e.currentTarget.value;
   }
@@ -23,4 +23,4 @@ class EmailInput extends React.Component<Props> {
   }
 }
 
-export default EmailInput;
+export default Email;

@@ -1,12 +1,11 @@
 import React from 'react';
 import docs from './docs';
+import { RegisteredDate } from '~/lib';
 
-import { EmailInput } from '~/lib';
-
-export const Basic = (props:any) => <EmailInput propName="email" />;
+export const Basic = (props:any) => <RegisteredDate propName="reg_dt" />;
 
 Basic.story = {
-  name: 'EmailInput',
+  name: 'RegisteredDate',
 };
 
 export default {

@@ -6,8 +6,9 @@ import { SemanticWIDTHS } from 'semantic-ui-react/dist/commonjs/generic';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import SearchStore from '~/lib/service/search/store/SearchStore';
-import { EmailInput, SearchConfig } from '~/lib';
+import { Email, SearchConfig } from '~/lib';
 import Status from '~/lib/ui/searchBox/component/Status';
+import RegisteredDate from '~/lib/ui/searchBox/component/RegisteredDate';
 
 interface Props {
   arr: Array<string>,
@@ -30,6 +31,9 @@ const config: ConfigType = {
   },
 };
 
+/**
+ *  기본 2 * 2 Table 검색박스입니다.
+ */
 @observer
 class SearchBox extends React.Component<Props, any> {
   static defaultProps = {
@@ -40,17 +44,18 @@ class SearchBox extends React.Component<Props, any> {
   }
 
   onSubmit = () => {
-    // console.log(SearchStore.searchParams.email);
     this.props.onSubmit(toJS(SearchStore.searchParams));
   }
 
-  aaa = (param:string) => {
+  searchComponent = (param:string) => {
     console.log(param);
     switch (param) {
       case SearchConfig.EMAIL_INPUT:
-        return <EmailInput propName="email" />;
+        return <Email propName="email" />;
       case SearchConfig.STATUS:
         return <Status propName="status" />;
+      case SearchConfig.REGISTERED_DATE:
+        return <RegisteredDate propName="reg_dt" />;
       default:
         return '';
     }
@@ -66,16 +71,12 @@ class SearchBox extends React.Component<Props, any> {
             <Table celled>
               <Table.Body>
                 <Table.Row>
-                  {arr[0] !== '' ? this.aaa(arr[0]) : ''}
-                  {arr[1] !== '' ? <EmailInput propName="email" /> : ''}
-                  {/*<EmailInput />*/}
-                  {/*<EmailInput />*/}
+                  {arr[0] !== '' ? this.searchComponent(arr[0]) : ''}
+                  {arr[0] !== '' ? this.searchComponent(arr[1]) : ''}
                 </Table.Row>
                 <Table.Row>
-                  {arr[2] !== '' ? this.aaa(arr[2]) : ''}
-                  {arr[3] !== '' ? <EmailInput propName="email" /> : ''}
-                  {/*<EmailInput />*/}
-                  {/*<EmailInput />*/}
+                  {arr[2] !== '' ? this.searchComponent(arr[2]) : ''}
+                  {arr[2] !== '' ? this.searchComponent(arr[3]) : ''}
                 </Table.Row>
               </Table.Body>
             </Table>

@@ -1,6 +1,7 @@
 export const SearchConfig = Object.freeze({
   EMAIL_INPUT: 'EMAIL_INPUT',
   STATUS: 'STATUS',
+  REGISTERED_DATE: 'REGISTERED_DATE',
 });
 
 interface DropdownProps {
