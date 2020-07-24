@@ -1,7 +1,7 @@
-import { QrCode } from '~/lib';
+import { SearchBox } from '~/lib';
 
 export default {
   title: 'component|SearchBox',
-  component: QrCode,
+  component: SearchBox,
   parameters: {},
 };

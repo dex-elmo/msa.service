@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import { QrCode } from '~/lib';
+import { SearchBox, SearchConfig } from '~/lib';
 import docs from './docs';
 
+/**
+ * asd
+ */
 export const Basic = (props: any) => {
   class Story extends Component {
+    onSubmit = (data:object) => {
+      console.log(data);
+    }
+
     render() {
+      const a = [SearchConfig.EMAIL_INPUT, '', SearchConfig.STATUS, SearchConfig.EMAIL_INPUT];
+
       return (
         <div>
-          <QrCode
-            value='{"userId": id, "type": type}'
-          />
+          <SearchBox arr={a} onSubmit={this.onSubmit} />
         </div>
       );
     }
