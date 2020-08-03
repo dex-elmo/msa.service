@@ -5,6 +5,7 @@ import {
 import { SemanticWIDTHS } from 'semantic-ui-react/dist/commonjs/generic';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
+import moment from 'moment';
 import SearchStore from '~/lib/service/search/store/SearchStore';
 import {
   InputComponent, SearchConfig, SelectComponent, SelectOption,
@@ -43,6 +44,11 @@ class SearchBox extends React.Component<Props, any> {
 
   componentDidMount() {
     SearchStore.setSearchParamNull();
+
+    // Date 오늘날짜로 초기화
+    const startDate = moment().subtract(7, 'days').format('YYYYMMDD');
+    const endDate = moment().format('YYYYMMDD');
+    SearchStore.searchParams.reg_dt = { startDate, endDate };
   }
 
   onSubmit = () => {

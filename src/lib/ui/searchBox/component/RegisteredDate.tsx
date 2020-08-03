@@ -25,7 +25,7 @@ class RegisteredDate extends React.Component<Props> {
   render() {
     return (
       <>
-        <Table.Cell width={2} active>Registered Date</Table.Cell>
+        <Table.Cell width={2} active>Date</Table.Cell>
         <Table.Cell width={4}>
           <DateRangePicker
             startDate={this.defaultDate.startDate}
