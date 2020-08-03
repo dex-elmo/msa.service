@@ -72,11 +72,11 @@ class SearchBox extends React.Component<Props, any> {
               <Table.Body>
                 <Table.Row>
                   {arr[0] !== '' ? this.searchComponent(arr[0]) : ''}
-                  {arr[0] !== '' ? this.searchComponent(arr[1]) : ''}
+                  {arr[1] !== '' ? this.searchComponent(arr[1]) : ''}
                 </Table.Row>
                 <Table.Row>
                   {arr[2] !== '' ? this.searchComponent(arr[2]) : ''}
-                  {arr[2] !== '' ? this.searchComponent(arr[3]) : ''}
+                  {arr[3] !== '' ? this.searchComponent(arr[3]) : ''}
                 </Table.Row>
               </Table.Body>
             </Table>

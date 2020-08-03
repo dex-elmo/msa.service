@@ -18,7 +18,7 @@ class RegisteredDate extends React.Component<Props> {
     final: { startDate: moment.Moment, endDate: moment.Moment },
   ) => {
     const startDate = final.startDate.format('YYYYMMDD');
-    const endDate = final.startDate.format('YYYYMMDD');
+    const endDate = final.endDate.format('YYYYMMDD');
     SearchStore.searchParams[this.props.propName] = { startDate, endDate };
   };
 
