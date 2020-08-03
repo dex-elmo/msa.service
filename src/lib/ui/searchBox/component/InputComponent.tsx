@@ -6,15 +6,17 @@ interface Props {
   propName: string,
 }
 
-class Email extends React.Component<Props> {
+class InputComponent extends React.Component<Props> {
   handleInput = (e:any) => {
     SearchStore.searchParams[this.props.propName] = e.currentTarget.value;
   }
 
   render() {
+    const { propName } = this.props;
+
     return (
       <>
-        <Table.Cell width={2} active>Email</Table.Cell>
+        <Table.Cell width={2} active>{propName}</Table.Cell>
         <Table.Cell width={4}>
           <Input onChange={this.handleInput} />
         </Table.Cell>
@@ -23,4 +25,4 @@ class Email extends React.Component<Props> {
   }
 }
 
-export default Email;
+export default InputComponent;

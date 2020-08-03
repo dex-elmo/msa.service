@@ -1,5 +1,13 @@
 export const SearchConfig = Object.freeze({
-  EMAIL_INPUT: 'EMAIL_INPUT',
+  INPUT: {
+    E_Mail_ID: 'E-Mail ID',
+    BRANCH_NAME: 'Branch name',
+    BRANCH_CODE: 'Branch code',
+    NAME: 'Name',
+    METER_ID: 'Meter ID',
+    WALLET_ID: 'Wallet ID',
+    DEPOSIT_CODE: 'Deposit code',
+  },
   STATUS: 'STATUS',
   REGISTERED_DATE: 'REGISTERED_DATE',
 });

@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  Button, Form, Grid, Input, Table,
+  Button, Form, Grid, Table,
 } from 'semantic-ui-react';
 import { SemanticWIDTHS } from 'semantic-ui-react/dist/commonjs/generic';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import SearchStore from '~/lib/service/search/store/SearchStore';
-import { Email, SearchConfig } from '~/lib';
+import { InputComponent, SearchConfig } from '~/lib';
 import Status from '~/lib/ui/searchBox/component/Status';
 import RegisteredDate from '~/lib/ui/searchBox/component/RegisteredDate';
 
@@ -50,12 +50,24 @@ class SearchBox extends React.Component<Props, any> {
   searchComponent = (param:string) => {
     console.log(param);
     switch (param) {
-      case SearchConfig.EMAIL_INPUT:
-        return <Email propName="email" />;
       case SearchConfig.STATUS:
         return <Status propName="status" />;
       case SearchConfig.REGISTERED_DATE:
         return <RegisteredDate propName="reg_dt" />;
+      case SearchConfig.INPUT.E_Mail_ID:
+        return <InputComponent propName={SearchConfig.INPUT.E_Mail_ID} />;
+      case SearchConfig.INPUT.BRANCH_NAME:
+        return <InputComponent propName={SearchConfig.INPUT.BRANCH_NAME} />;
+      case SearchConfig.INPUT.BRANCH_CODE:
+        return <InputComponent propName={SearchConfig.INPUT.BRANCH_CODE} />;
+      case SearchConfig.INPUT.NAME:
+        return <InputComponent propName={SearchConfig.INPUT.NAME} />;
+      case SearchConfig.INPUT.METER_ID:
+        return <InputComponent propName={SearchConfig.INPUT.METER_ID} />;
+      case SearchConfig.INPUT.WALLET_ID:
+        return <InputComponent propName={SearchConfig.INPUT.WALLET_ID} />;
+      case SearchConfig.INPUT.DEPOSIT_CODE:
+        return <InputComponent propName={SearchConfig.INPUT.DEPOSIT_CODE} />;
       default:
         return '';
     }
