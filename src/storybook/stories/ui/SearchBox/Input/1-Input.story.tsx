@@ -1,12 +1,12 @@
 import React from 'react';
 import docs from './docs';
 
-import { Email } from '~/lib';
+import { InputComponent } from '~/lib';
 
-export const Basic = (props:any) => <Email propName="email" />;
+export const Basic = (props:any) => <InputComponent propName="InputName" />;
 
 Basic.story = {
-  name: 'Email',
+  name: 'InputComponent',
 };
 
 export default {

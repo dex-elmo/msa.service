@@ -9,7 +9,7 @@ export const Basic = (props: any) => {
     }
 
     render() {
-      const searchArr = [SearchConfig.INPUT.DEPOSIT_CODE, '', SearchConfig.STATUS, SearchConfig.REGISTERED_DATE];
+      const searchArr = [SearchConfig.SELECT.OPERATION_HISTORY.VALUE, '', SearchConfig.SELECT.STATION_STATUS.VALUE, SearchConfig.REGISTERED_DATE];
 
       return (
         <div>

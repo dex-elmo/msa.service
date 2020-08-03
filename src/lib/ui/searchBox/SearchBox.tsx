@@ -6,7 +6,9 @@ import { SemanticWIDTHS } from 'semantic-ui-react/dist/commonjs/generic';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import SearchStore from '~/lib/service/search/store/SearchStore';
-import { InputComponent, SearchConfig } from '~/lib';
+import {
+  InputComponent, SearchConfig, SelectComponent, SelectOption,
+} from '~/lib';
 import Status from '~/lib/ui/searchBox/component/Status';
 import RegisteredDate from '~/lib/ui/searchBox/component/RegisteredDate';
 
@@ -50,8 +52,8 @@ class SearchBox extends React.Component<Props, any> {
   searchComponent = (param:string) => {
     console.log(param);
     switch (param) {
-      case SearchConfig.STATUS:
-        return <Status propName="status" />;
+      // case SearchConfig.STATUS:
+      //   return <Status propName="status" />;
       case SearchConfig.REGISTERED_DATE:
         return <RegisteredDate propName="reg_dt" />;
       case SearchConfig.INPUT.E_Mail_ID:
@@ -68,6 +70,18 @@ class SearchBox extends React.Component<Props, any> {
         return <InputComponent propName={SearchConfig.INPUT.WALLET_ID} />;
       case SearchConfig.INPUT.DEPOSIT_CODE:
         return <InputComponent propName={SearchConfig.INPUT.DEPOSIT_CODE} />;
+      case SearchConfig.SELECT.TRANSACTION_HISTORY.VALUE:
+        return <SelectComponent propName={SearchConfig.SELECT.TRANSACTION_HISTORY.HEADER} option={SelectOption.transactionHistory} />;
+      case SearchConfig.SELECT.STATION_STATUS.VALUE:
+        return <SelectComponent propName={SearchConfig.SELECT.STATION_STATUS.HEADER} option={SelectOption.stationStatus} />;
+      case SearchConfig.SELECT.OPERATION_HISTORY.VALUE:
+        return <SelectComponent propName={SearchConfig.SELECT.OPERATION_HISTORY.HEADER} option={SelectOption.operationHistory} />;
+      case SearchConfig.SELECT.MEMBER_STATUS.VALUE:
+        return <SelectComponent propName={SearchConfig.SELECT.MEMBER_STATUS.HEADER} option={SelectOption.memberStatus} />;
+      case SearchConfig.SELECT.WALLET_HISTORY.VALUE:
+        return <SelectComponent propName={SearchConfig.SELECT.WALLET_HISTORY.HEADER} option={SelectOption.walletHistory} />;
+      case SearchConfig.SELECT.RECHARGING_METHOD.VALUE:
+        return <SelectComponent propName={SearchConfig.SELECT.RECHARGING_METHOD.HEADER} option={SelectOption.rechargingMethod} />;
       default:
         return '';
     }
