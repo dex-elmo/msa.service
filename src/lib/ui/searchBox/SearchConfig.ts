@@ -34,6 +34,20 @@ export const SearchConfig = Object.freeze({
       HEADER: 'RECHARGING_METHOD',
     },
   },
+  CATEGORY: {
+    BRANCH: {
+      VALUE: 'CATEGORY_BRANCH',
+      HEADER: 'Category',
+    },
+    MEMBER: {
+      VALUE: 'CATEGORY_MEMBER',
+      HEADER: 'Category',
+    },
+    WALLET: {
+      VALUE: 'CATEGORY_WALLET',
+      HEADER: 'Category',
+    },
+  },
   // STATUS: 'STATUS',
   REGISTERED_DATE: 'REGISTERED_DATE',
 });
@@ -52,6 +66,9 @@ export interface SelectOptions {
   memberStatus: DropdownProps[],
   walletHistory: DropdownProps[],
   rechargingMethod: DropdownProps[],
+  categoryBranch: DropdownProps[],
+  categoryMember: DropdownProps[],
+  categoryWallet: DropdownProps[],
 }
 
 export const SelectOption: SelectOptions = {
@@ -92,6 +109,21 @@ export const SelectOption: SelectOptions = {
     { key: 'CASH', value: 'CASH', text: 'CASH' },
     { key: 'MOBILE_MONEY', value: 'MOBILE_MONEY', text: 'MOBILE_MONEY' },
     { key: 'CREDIT_CARD', value: 'CREDIT_CARD', text: 'CREDIT_CARD' },
+  ],
+  categoryBranch: [
+    { key: 'BRANCH_CODE', value: 'BRANCH_CODE', text: 'BRANCH_CODE' },
+    { key: 'BRANCH_NAME', value: 'BRANCH_NAME', text: 'BRANCH_NAME' },
+    { key: 'TELEPHONE', value: 'TELEPHONE', text: 'TELEPHONE' },
+    { key: 'AFFILIATION_E/S', value: 'AFFILIATION_E', text: 'AFFILIATION_E' },
+  ],
+  categoryMember: [
+    { key: 'EMAIL_ID', value: 'EMAIL_ID', text: 'EMAIL_ID' },
+    { key: 'NAME', value: 'NAME', text: 'NAME' },
+    { key: 'MOBILE_NO', value: 'MOBILE_NO', text: 'MOBILE_NO' },
+  ],
+  categoryWallet: [
+    { key: 'EMAIL_ID', value: 'EMAIL_ID', text: 'EMAIL_ID' },
+    { key: 'WALLET_ID', value: 'WALLET_ID', text: 'WALLET_ID' },
   ],
 };
 

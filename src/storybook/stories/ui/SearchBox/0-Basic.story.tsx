@@ -9,11 +9,11 @@ export const Basic = (props: any) => {
     }
 
     render() {
-      const searchArr = [SearchConfig.SELECT.OPERATION_HISTORY.VALUE, '', SearchConfig.SELECT.STATION_STATUS.VALUE, SearchConfig.REGISTERED_DATE];
+      const searchArr = [SearchConfig.INPUT.E_Mail_ID, '', SearchConfig.SELECT.WALLET_HISTORY.VALUE, SearchConfig.CATEGORY.WALLET.VALUE];
 
       return (
         <div>
-          <SearchBox arr={searchArr} onSubmit={this.onSubmit} />
+          <SearchBox searchArr={searchArr} onSubmit={this.onSubmit} />
         </div>
       );
     }

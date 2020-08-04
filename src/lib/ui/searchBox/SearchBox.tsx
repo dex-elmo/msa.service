@@ -8,13 +8,14 @@ import { toJS } from 'mobx';
 import moment from 'moment';
 import SearchStore from '~/lib/service/search/store/SearchStore';
 import {
+  CategoryComponent,
   InputComponent, SearchConfig, SelectComponent, SelectOption,
 } from '~/lib';
 import Status from '~/lib/ui/searchBox/component/Status';
 import RegisteredDate from '~/lib/ui/searchBox/component/RegisteredDate';
 
 interface Props {
-  arr: Array<string>,
+  searchArr: Array<string>,
   onSubmit:any,
 }
 
@@ -60,8 +61,7 @@ class SearchBox extends React.Component<Props, any> {
     switch (param) {
       // case SearchConfig.STATUS:
       //   return <Status propName="status" />;
-      case SearchConfig.REGISTERED_DATE:
-        return <RegisteredDate propName="reg_dt" />;
+      // Input
       case SearchConfig.INPUT.E_Mail_ID:
         return <InputComponent propName={SearchConfig.INPUT.E_Mail_ID} />;
       case SearchConfig.INPUT.BRANCH_NAME:
@@ -76,6 +76,7 @@ class SearchBox extends React.Component<Props, any> {
         return <InputComponent propName={SearchConfig.INPUT.WALLET_ID} />;
       case SearchConfig.INPUT.DEPOSIT_CODE:
         return <InputComponent propName={SearchConfig.INPUT.DEPOSIT_CODE} />;
+      // Select
       case SearchConfig.SELECT.TRANSACTION_HISTORY.VALUE:
         return <SelectComponent propName={SearchConfig.SELECT.TRANSACTION_HISTORY.HEADER} option={SelectOption.transactionHistory} />;
       case SearchConfig.SELECT.STATION_STATUS.VALUE:
@@ -88,13 +89,23 @@ class SearchBox extends React.Component<Props, any> {
         return <SelectComponent propName={SearchConfig.SELECT.WALLET_HISTORY.HEADER} option={SelectOption.walletHistory} />;
       case SearchConfig.SELECT.RECHARGING_METHOD.VALUE:
         return <SelectComponent propName={SearchConfig.SELECT.RECHARGING_METHOD.HEADER} option={SelectOption.rechargingMethod} />;
+      // Category
+      case SearchConfig.CATEGORY.BRANCH.VALUE:
+        return <CategoryComponent propName={SearchConfig.CATEGORY.BRANCH.HEADER} option={SelectOption.categoryBranch} />;
+      case SearchConfig.CATEGORY.MEMBER.VALUE:
+        return <CategoryComponent propName={SearchConfig.CATEGORY.MEMBER.HEADER} option={SelectOption.categoryMember} />;
+      case SearchConfig.CATEGORY.WALLET.VALUE:
+        return <CategoryComponent propName={SearchConfig.CATEGORY.WALLET.HEADER} option={SelectOption.categoryWallet} />;
+      // Registered Date
+      case SearchConfig.REGISTERED_DATE:
+        return <RegisteredDate propName={SearchConfig.REGISTERED_DATE} />;
       default:
         return '';
     }
   };
 
   render() {
-    const { arr } = this.props;
+    const { searchArr } = this.props;
 
     return (
       <Grid>
@@ -103,12 +114,12 @@ class SearchBox extends React.Component<Props, any> {
             <Table celled>
               <Table.Body>
                 <Table.Row>
-                  {arr[0] !== '' ? this.searchComponent(arr[0]) : ''}
-                  {arr[1] !== '' ? this.searchComponent(arr[1]) : ''}
+                  {searchArr[0] !== '' ? this.searchComponent(searchArr[0]) : ''}
+                  {searchArr[1] !== '' ? this.searchComponent(searchArr[1]) : ''}
                 </Table.Row>
                 <Table.Row>
-                  {arr[2] !== '' ? this.searchComponent(arr[2]) : ''}
-                  {arr[3] !== '' ? this.searchComponent(arr[3]) : ''}
+                  {searchArr[2] !== '' ? this.searchComponent(searchArr[2]) : ''}
+                  {searchArr[3] !== '' ? this.searchComponent(searchArr[3]) : ''}
                 </Table.Row>
               </Table.Body>
             </Table>
