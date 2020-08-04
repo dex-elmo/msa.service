@@ -8,8 +8,8 @@ import { toJS } from 'mobx';
 import moment from 'moment';
 import SearchStore from '~/lib/service/search/store/SearchStore';
 import {
-  CategoryComponent,
-  InputComponent, SearchConfig, SelectComponent, SelectOption,
+  CategoryComponent, InputComponent, RegisteredBranchComponent, RegisteredBranchComponent2,
+  SearchConfig, SelectComponent, SelectOption,
 } from '~/lib';
 import Status from '~/lib/ui/searchBox/component/Status';
 import RegisteredDate from '~/lib/ui/searchBox/component/RegisteredDate';
@@ -99,6 +99,11 @@ class SearchBox extends React.Component<Props, any> {
       // Registered Date
       case SearchConfig.REGISTERED_DATE:
         return <RegisteredDate propName={SearchConfig.REGISTERED_DATE} />;
+      // Registered Branch
+      case SearchConfig.REGISTERED_BRANCH:
+        return <RegisteredBranchComponent propName={SearchConfig.REGISTERED_BRANCH} />;
+      case SearchConfig.REGISTERED_BRANCH2:
+        return <RegisteredBranchComponent2 propName={SearchConfig.REGISTERED_BRANCH2} />;
       default:
         return '';
     }

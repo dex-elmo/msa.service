@@ -9,7 +9,7 @@ export const Basic = (props: any) => {
     }
 
     render() {
-      const searchArr = [SearchConfig.INPUT.E_Mail_ID, '', SearchConfig.SELECT.WALLET_HISTORY.VALUE, SearchConfig.CATEGORY.WALLET.VALUE];
+      const searchArr = [SearchConfig.REGISTERED_BRANCH2, '', SearchConfig.SELECT.WALLET_HISTORY.VALUE, SearchConfig.INPUT.E_Mail_ID];
 
       return (
         <div>

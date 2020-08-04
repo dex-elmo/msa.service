@@ -1,5 +1,6 @@
 import { action, observable } from 'mobx';
 import moment from 'moment';
+import SearchApi from '~/lib/service/search/api/SearchApi';
 
 export class SearchStore {
   @observable
@@ -15,6 +16,19 @@ export class SearchStore {
   setSearchParamNull() {
     this.searchParams = {};
   }
+
+  @action
+  getBranchByType = (branchType:string) => {
+    SearchApi.getBranchByType(branchType);
+
+    const option = [
+      { key: 'aaa', value: 'aaa', text: 'aaa' },
+      { key: 'bbb', value: 'bbb', text: 'bbb' },
+      { key: 'ccc', value: 'ccc', text: 'ccc' },
+    ];
+
+    return option;
+  };
 }
 
 export default new SearchStore();

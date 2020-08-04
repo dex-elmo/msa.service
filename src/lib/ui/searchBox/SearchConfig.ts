@@ -50,6 +50,8 @@ export const SearchConfig = Object.freeze({
   },
   // STATUS: 'STATUS',
   REGISTERED_DATE: 'REGISTERED_DATE',
+  REGISTERED_BRANCH: 'REGISTERED_BRANCH',
+  REGISTERED_BRANCH2: 'REGISTERED_BRANCH2',
 });
 
 export interface DropdownProps {
